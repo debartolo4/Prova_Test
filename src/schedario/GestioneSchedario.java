@@ -34,7 +34,7 @@ import javax.swing.JScrollPane;
 
 
 /**
- * The Class GestioneSchedario.
+ * The Class GestioneSchedario
  */
 public class GestioneSchedario extends JFrame {
 	
