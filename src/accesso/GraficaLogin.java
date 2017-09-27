@@ -164,7 +164,7 @@ public class GraficaLogin extends JFrame {
 			
 			String name = null;
 			try {
-				if(c.controlUser(textField.getText()))
+				if(c.userControl(textField.getText()))
 					name = textField.getText();
 			} catch (Exception e3) {
 				e3.printStackTrace();
