@@ -104,6 +104,34 @@ public class TestBlackBox {
 		assertTrue(control.surnameControl(text));
 	}
 	
+
+	//Controllo PASSWORD minore di 4 caratteri
+	@Test (expected = Exception.class)
+	public void testPasswordControlWithShortWord() throws Exception {
+		text.setText("4sd");
+		control.userControl(text);
+	}
+
+	//Controllo PASSWORD maggiore di 20 caratteri
+	@Test (expected = Exception.class)
+	public void testPasswordControlWithLongWord() throws Exception {
+		text.setText("c0ntienepiudiv3nticaratteri");
+		control.userControl(text);
+	}
 	
+	//Controllo PASSWORD con almeno 1 numero e 1 lettera
+	@Test (expected = Exception.class)
+	public void testPasswordControlOneNumAndOneLett() throws Exception {
+		text.setText("23121898");
+		control.passwordControl(text);
+	}
+	
+	//Controllo1 PASSWORD con almeno 1 numero e 1 lettera
+	@Test (expected = Exception.class)
+	public void test1PasswordControlOneNumAndOneLett() throws Exception {
+		text.setText("password");
+		control.passwordControl(text);
+	}
+
 	
 }
