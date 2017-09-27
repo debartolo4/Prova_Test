@@ -11,20 +11,30 @@ import enums.Table;
 import support.DBManager;
 
 public class Controlli {
-
+//	CONTROLLO USERNAME
+//	- Contenere da 4 (compreso) a 20 (escluso) caratteri;
+//	- Contenere almeno un numero;
+//	- Non può terminare con ".";
 	public boolean userControl (JTextField text) throws Exception {
 		
 		String user = text.getText();
 		
 		if (user.length() >= 4 && user.length() < 20) {
-			return true;
+			if (user.matches("^(\\w+[0-9]+\\w*)|(\\w*[0-9]+\\w+)$")) {
+				if (!user.endsWith(".")) {
+					return true;
+				} else {
+					throw new Exception("L'Username non può terminare con '.'");
+				}
+			} else {
+				throw new Exception("L'Username deve contenere almeno un numero.");
+			}
 		} else {
 			throw new Exception("Il campo 'Username' deve contenere da 4 (compreso) a 20 (escluso) caratteri.");
 		}
 		
-		if (user.)
-		
 	}
+	
 	
 	
 //	
