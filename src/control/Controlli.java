@@ -35,7 +35,25 @@ public class Controlli {
 		
 	}
 	
+//	CONTROLLO PASSWORD
+//	-Lunghezza da 4 a 20 caratteri;
+//	-Contenere almeno 1 numero e 1 lettera;
+//	-Contenere almeno 1 lettera maiuscola;
 	
+	public boolean passwordControl (JTextField text) throws Exception {
+		
+		String password = text.getText();
+		
+		if ((password.length() >= 4) && (password.length() < 20)) {
+			if (password.matches("^([a-zA-Z]+\\w*[0-9]+[a-zA-Z]*\\w*)|([a-zA-Z]*\\w*[0-9]+[a-zA-Z]+\\w*)$")) {
+				return true;			
+			} else {
+				throw new Exception("Il campo 'Password' deve contenere almeno un numero e una lettera");
+			}
+		} else {
+			throw new Exception("Il campo 'Password' deve contenere da 4 (compreso) a 20 (escluso) caratteri.");
+		}
+	}
 	
 //	
 //	
