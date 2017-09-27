@@ -34,8 +34,7 @@ public class Controlli {
 //	CONTROLLO PASSWORD
 //	-Lunghezza da 4 a 20 caratteri;
 //	-Contenere almeno 1 numero e 1 lettera;
-//	-Contenere almeno 1 lettera maiuscola;
-	
+//	-Contenere almeno 1 lettera maiuscola;	
 	public boolean passwordControl (JTextField text) throws Exception {
 		
 		String password = text.getText();
@@ -51,7 +50,46 @@ public class Controlli {
 		}
 	}
 	
-	
+//	CONTROLLO SESSO
+//	Il campo 'Sesso' deve essere una 'M' o una 'F'.
+	public boolean sexControl (JTextField text) throws Exception {
+		
+		String sex = text.getText();
+		
+		if (sex.equalsIgnoreCase("M") || sex.equalsIgnoreCase("F")) {
+			return true;
+		} else {
+			throw new Exception ("Il valore inserito per il SESSO non è consentito.");
+		}
+		
+	}
+
+//	CONTROLLO NOME DIPENDENTE
+//	Il nome del dipendente non può contenere numeri e deve cominciare con una lettera maiuscola.
+	public boolean nameControl (JTextField text) throws Exception {
+		
+		String name = text.getText();
+		
+		if (name.matches("^[A-Z]+\\D*$")) {
+			return true;
+		} else {
+			throw new Exception ("Nome inserito non valido. Deve cominciare con la lettera maiuscola e può contenere solo lettere.");
+		}
+	}
+
+//	CONTROLLO COGNOME DIPENDENTE
+//	Il cognome del dipendente non può contenere numeri.
+	public boolean surnameControl (JTextField text) throws Exception {
+		
+		String surname = text.getText();
+		
+		if (surname.matches("^\\D*$")) {
+			return true;
+		} else {
+			throw new Exception ("Il cognome inserito non è valido. Può contenere solo lettere.");
+		}
+	}
+
 	
 //	
 //	

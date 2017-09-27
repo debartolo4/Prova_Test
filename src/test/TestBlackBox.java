@@ -61,6 +61,49 @@ public class TestBlackBox {
 		text.setText("usernameValida33");
 		assertTrue(control.userControl(text));
 	}
-		
+	
+	//Controllo SESSO non accettato
+	@Test (expected = Exception.class)
+	public void testSexControlNotAccepted() throws Exception {
+		text.setText("NONVALIDO");
+		control.sexControl(text);
+	}
 
+	//Controllo SESSO accettato
+	@Test
+	public void testSexControlAccepted() throws Exception {
+		text.setText("M");
+		assertTrue(control.sexControl(text));
+	}
+	
+	//Controllo SESSO non accettato
+	@Test (expected = Exception.class)
+	public void testNameControlNotAccepted() throws Exception {
+		text.setText("inizioconlaminuscola");
+		control.nameControl(text);
+	}
+
+	//Controllo SESSO accettato
+	@Test
+	public void testNameControlAccepted() throws Exception {
+		text.setText("Carlo");
+		assertTrue(control.nameControl(text));
+	}
+	
+	//Controllo SESSO non accettato
+	@Test (expected = Exception.class)
+	public void testSurnameControlNotAccepted() throws Exception {
+		text.setText("ilmiocogn0m3");
+		control.surnameControl(text);
+	}
+
+	//Controllo SESSO accettato
+	@Test
+	public void testSurnameControlAccepted() throws Exception {
+		text.setText("de Bartolo");
+		assertTrue(control.surnameControl(text));
+	}
+	
+	
+	
 }
