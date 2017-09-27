@@ -27,18 +27,40 @@ public class TestBlackBox {
 		text = null;
 	}
 	
+	//Controllo USERNAME minore di 4 caratteri
 	@Test (expected = Exception.class)
 	public void testUserControlWithShortWord() throws Exception {
-		text.setText("cia");
+		text.setText("shr");
 		control.userControl(text);
 	}
 	
-	@Test
-	public void testUserControlWithAcceptedWord() throws Exception {
-		text.setText("ciao");
-		assertTrue(control.userControl(text));
+	//Controllo USERNAME senza numeri
+	@Test (expected = Exception.class)
+	public void testUserControlWithoutNumbers() throws Exception {
+		text.setText("usernamesenzanumeri");
+		control.userControl(text);
 	}
 	
+	//Controllo USERNAME senza lettere
+	@Test (expected = Exception.class)
+	public void testUserControlWithoutLetters() throws Exception {
+		text.setText("33433433");
+		control.userControl(text);
+	}
 	
+	//Controllo USERNAME che termina con punto
+	@Test (expected = Exception.class)
+	public void testUserControlWithPoint() throws Exception {
+		text.setText("conpunto3.");
+		control.userControl(text);
+	}
+	
+	//Controllo USERNAME valida
+	@Test
+	public void testUserControlWithAcceptedWord() throws Exception {
+		text.setText("usernameValida33");
+		assertTrue(control.userControl(text));
+	}
+		
 
 }

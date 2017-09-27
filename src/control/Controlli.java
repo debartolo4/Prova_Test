@@ -11,28 +11,24 @@ import enums.Table;
 import support.DBManager;
 
 public class Controlli {
+	
 //	CONTROLLO USERNAME
-//	- Contenere da 4 (compreso) a 20 (escluso) caratteri;
-//	- Contenere almeno un numero;
-//	- Non può terminare con ".";
-	public boolean userControl (JTextField text) throws Exception {
-		
+//	L'Username:
+//	- Deve contenere da 4 (compreso) a 20 (escluso) caratteri;
+//	- Deve contenere almeno un numero e una lettera;
+//	- Non deve contenere caratteri speciali;
+	public boolean userControl (JTextField text) throws Exception {		
 		String user = text.getText();
 		
 		if (user.length() >= 4 && user.length() < 20) {
-			if (user.matches("^(\\w+[0-9]+\\w*)|(\\w*[0-9]+\\w+)$")) {
-				if (!user.endsWith(".")) {
-					return true;
-				} else {
-					throw new Exception("L'Username non può terminare con '.'");
-				}
+			if (user.matches("^([a-zA-Z]+\\w*[0-9]+[a-zA-Z]*\\w*)|([a-zA-Z]*\\w*[0-9]+[a-zA-Z]+\\w*)$")) {
+				return true;
 			} else {
-				throw new Exception("L'Username deve contenere almeno un numero.");
+				throw new Exception("L'Username deve contenere almeno un numero e una lettera (non può contenere caratteri speciali).");
 			}
 		} else {
 			throw new Exception("Il campo 'Username' deve contenere da 4 (compreso) a 20 (escluso) caratteri.");
-		}
-		
+		}		
 	}
 	
 //	CONTROLLO PASSWORD
@@ -54,6 +50,8 @@ public class Controlli {
 			throw new Exception("Il campo 'Password' deve contenere da 4 (compreso) a 20 (escluso) caratteri.");
 		}
 	}
+	
+	
 	
 //	
 //	
