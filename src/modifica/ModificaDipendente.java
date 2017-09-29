@@ -18,8 +18,6 @@ import java.awt.Font;
 import javax.swing.AbstractAction;
 import java.awt.event.ActionEvent;
 
-import java.sql.Date;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -325,11 +323,12 @@ public class ModificaDipendente extends JFrame {
 			Controlli c = new Controlli();
 			boolean on = false;
 			try {
-				on = c.controlChar(textField, textField_1, textField_9)&& c.controlSex(textField_2) &&
-						c.controlDate(textField_3) && c.controlEmail(textField_4) 
-						&& c.controlPhoneNumber(textField_5) && c.controlAddress(textField_6)
-						&& c.controlId(textField_7, Table.DIPENDENTE)
-						&& c.controlCf(textField_8);
+				on = c.nameControl(textField) && c.surnameControl(textField_1) &&
+						c.taskControl(textField_9) && c.sexControl(textField_2) &&
+						c.dateControl(textField_3) && c.emailControl(textField_4) 
+						&& c.phoneControl(textField_5) && c.addressControl(textField_6)
+						&& c.IDControl(textField_7, Table.DIPENDENTE, this.getClass().getName())
+						&& c.cfControl(textField_8);
 			} catch (Exception e3) {
 				e3.printStackTrace();
 			}
@@ -352,18 +351,13 @@ public class ModificaDipendente extends JFrame {
 							+ "Cognome= ? AND Sesso= ? AND"
 							+ "data_di_nascita = ? AND Mail= ? AND"
 							+ "Telefono= ? AND Domicilio= ? AND"
-							+ "Mansione= ? AND ID_Dipendente= ? AND CF= ? WHERE ID_Dipendente = ? ;";
-						
-						
+							+ "Mansione= ? AND ID_Dipendente= ? AND CF= ? WHERE ID_Dipendente = ? ;";						
 					
 					DBManager mysql = DBManager.getInstance();
 					mysql.query(query,textField.getText(), textField_1.getText(), textField_2.getText(),
 							textField_3.getText(), textField_4.getText(), textField_5.getText(),
 							textField_6.getText(), textField_9.getText(), textField_7.getText(),
-							textField_8.getText(), textField_10.getText());
-					
-				
-			
+							textField_8.getText(), textField_10.getText());			
 				}
 			}	
 		}

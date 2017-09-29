@@ -138,7 +138,7 @@ public class NuovoSpazio extends JFrame {
 			boolean on = false;
 			
 			try {
-				on = c.controlId(textField, Table.SPAZIO) && c.controlChar(textField_1, textField_2);
+				on = c.IDControl(textField, Table.SPAZIO, this.getClass().getName()) && c.nameControl(textField_1) && c.notEmptyStringControl(textField_2);
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}

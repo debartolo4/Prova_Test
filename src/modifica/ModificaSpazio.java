@@ -215,17 +215,17 @@ public class ModificaSpazio extends JFrame {
 		public void actionPerformed(ActionEvent e) {
 			ArrayList<JTextField> textList = new ArrayList<>();
 			Controlli c = new Controlli();
-			
+
 			boolean on = false;
-			
+
 			try {
-				on = c.controlId(textField, Table.SPAZIO) && c.controlChar(textField_1, textField_2);
+				on = c.IDControl(textField, Table.SPAZIO, this.getClass().getName()) && c.notEmptyStringControl(textField_1) && 
+						c.notEmptyStringControl(textField_2);
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
-	
-			
-			if(on) {
+
+			if (on) {
 				textList.add(textField);
 				textList.add(textField_1);
 				textList.add(textField_2);
@@ -236,13 +236,13 @@ public class ModificaSpazio extends JFrame {
 							+ "Descrizione = ?  WHERE ID_Spazio = ?;";
 
 					DBManager mysql = DBManager.getInstance();
-					mysql.query(query, textField.getText(), textField_1.getText(),
-							textField_2.getText(), textField_10.getText());
+					mysql.query(query, textField.getText(), textField_1.getText(), textField_2.getText(),
+							textField_10.getText());
 
 				}
 
 			}
-			
-					}
+
+		}
 	}
 }

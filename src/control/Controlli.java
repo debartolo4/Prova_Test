@@ -2,7 +2,10 @@ package control;
 
 import java.util.GregorianCalendar;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.Calendar;
+
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import enums.Table;
 import support.DBManager;
@@ -33,8 +36,8 @@ public class Controlli {
 	// -Lunghezza da 4 a 20 caratteri;
 	// -Contenere almeno 1 numero e 1 lettera;
 	// -Contenere almeno 1 lettera maiuscola;
-	public boolean passwordControl(JTextField text) throws Exception {
-		String password = text.getText();
+	public boolean passwordControl(JPasswordField pass) throws Exception {
+		String password = String.copyValueOf(pass.getPassword());
 
 		if ((password.length() >= 4) && (password.length() < 20)) {
 			if (password.matches("^([a-zA-Z]+\\w*[0-9]+[a-zA-Z]*\\w*)|([a-zA-Z]*\\w*[0-9]+[a-zA-Z]+\\w*)$")) {
@@ -99,7 +102,7 @@ public class Controlli {
 
 	}
 
-	// CONTROLLO DATA DIPENDENTE
+	// CONTROLLO DATA
 	// La data deve essere del seguente formato: AAAA-MM-GG.
 	// Qualsiasi altro formato o delimitatore non è accettato.
 	public boolean dateControl(JTextField text) throws Exception {
@@ -218,40 +221,65 @@ public class Controlli {
 	// CONTROLLO ID
 	// Deve essere composto da soli numeri e deve avere una lunghezza pari a 6.
 	// Non deve essere un valore già presente nel database.
-	public boolean IDControl(JTextField text, Table table) throws Exception {
+	public boolean IDControl(JTextField text, Table table, String className) throws Exception {
 		String id = text.getText();
 		String query = null;
 		String label = null;
-		
+
 		if (!id.matches("^\\d{6}$")) {
-			throw new Exception ("La lunghezza dell'ID deve essere necessariamente 6.");
+			throw new Exception("La lunghezza dell'ID deve essere necessariamente 6.");
 		}
-		
-		if (table.equals(Table.DIPENDENTE)) {
-			query = "SELECT ID_Dipendente FROM mydipendente";
-			label = "ID_Dipendente"; 
-		} else if (table.equals(Table.SPAZIO)) {
-			query = "SELECT ID_Spazio FROM myspazio";
-			label = "ID_Spazio"; 
-		} else if (table.equals(Table.STRUMENTAZIONE)) {
-			query = "SELECT ID_Strumento FROM mystrumentazione";
-			label = "ID_Strumento"; 
-		}
-		
-		DBManager db = DBManager.getInstance();
-		ResultSet rs = db.querySelect(query);
-		
-		while (rs.next()) {
-			if(rs.getString(label).equals(id)) {
-				throw new Exception ("L'ID deve essere unico. Uno identico è già presente nel Database.");
+
+		if (className.equals("NuovoDipendente") || className.equals("NuovoSpazio")
+				|| className.equals("NuovaStrumentazione")) {
+			if (table.equals(Table.DIPENDENTE)) {
+				query = "SELECT ID_Dipendente FROM mydipendente";
+				label = "ID_Dipendente";
+			} else if (table.equals(Table.SPAZIO)) {
+				query = "SELECT ID_Spazio FROM myspazio";
+				label = "ID_Spazio";
+			} else if (table.equals(Table.STRUMENTAZIONE)) {
+				query = "SELECT ID_Strumento FROM mystrumentazione";
+				label = "ID_Strumento";
 			}
+
+			DBManager db = DBManager.getInstance();
+			ResultSet rs = db.querySelect(query);
+
+			while (rs.next()) {
+				if (rs.getString(label).equals(id)) {
+					throw new Exception("L'ID deve essere unico. Uno identico è già presente nel Database.");
+				}
+			}
+
 		}
-		
 		return true;
 	}
 
-	
-	
+	// CONTROLLO STRINGA TESTUALE NON VUOTA
+	// Controllare semplicemente che il campo non sia vuoto
+	public boolean notEmptyStringControl(JTextField text) throws Exception {
+		String field = text.getText();
+
+		if ((field.isEmpty()) || (!field.matches("^\\S+$"))) {
+			throw new Exception("Stringa vuota!");
+		} else {
+			return true;
+		}
+	}
+
+	// CONTROLLO NUMERO UNITA' POSSEDUTE
+	// Controllare che il campo non sia una lettera e che il numero sia >0
+	public boolean onlyNumFieldControl(JTextField text) throws Exception {
+		String field = text.getText();
+
+		if (field.matches("^\\d+$")) {
+			return true;
+		} else {
+			throw new Exception("Il campo deve contenere solo numeri!");
+		}
+	}
+
 	// public boolean controlId(JTextField jt, Table t) throws Exception {
 	// String query = null;
 	// Pattern pattern = Pattern.compile("^\\d{6}$");
@@ -399,69 +427,69 @@ public class Controlli {
 	// + "deve avere una lunghezza compresa fra 4 e 20;"
 	// + "deve contenere una lettere ed un numero)");
 	// }
-	//
-	//
-	// /**
-	// * Gets the query.
-	// *
-	// * @param textField the text field
-	// * @return the query
-	// * @throws Exception
-	// * @Query
-	// */
-	// public String getQuery(ArrayList<JTextField> textField2, Table t ,
-	// String... elem) throws Exception {
-	// textField2.iterator();
-	// int count = 0;
-	// String query = null;
-	// if(t.equals(Table.STRUMENTAZIONE))
-	// query = "INSERT INTO mystrumentazione (";
-	// else if(t.equals(Table.DIPENDENTE))
-	// query = "INSERT INTO mydipendente (";
-	// else if(t.equals(Table.SPAZIO))
-	// query = "INSERT INTO myspazio (";
-	// else throw new Exception();
-	//
-	// while(count < elem.length) {
-	// if(count != elem.length - 1)
-	// query = query + elem[count] + ",";
-	// else
-	// query = query + elem[count] + ") VALUES";
-	// count++;
-	// }
-	// query = query + "(";
-	// for(JTextField field1 : textField2) {
-	// query = query + "'" + field1.getText() + "',";
-	// }
-	// query = query.substring(0,query.length() - 1 );
-	// query = query + ");";
-	// return query;
-	// }
-	//
-	// /**
-	// * List utility.
-	// *
-	// * @param list the list
-	// * @param query the query
-	// * @param id the id
-	// * @return the array list
-	// * @throws Exception
-	// * @listUtility
-	// */
-	// public ArrayList<String> listUtility(ArrayList<String> list, String
-	// query, String id) throws Exception {
-	// DBManager mysql = DBManager.getInstance();
-	// int count = 0;
-	// ResultSet rs = mysql.querySelect(query);
-	// while(rs.next()) {
-	// count++;
-	// Integer temp = rs.getInt(id);
-	// list.add(temp.toString());
-	// }
-	// if(list.size()==count)
-	// return list;
-	// throw new Exception("Gli id non sono stati salvati correttamente");
-	// }
-	//
 
+	/**
+	 * Gets the query.
+	 *
+	 * @param textField
+	 *            the text field
+	 * @return the query
+	 * @throws Exception
+	 * @Query
+	 */
+//	public String getQuery(ArrayList<JTextField> textField2, Table t, String... elem) throws Exception {
+//		textField2.iterator();
+//		int count = 0;
+//		String query = null;
+//		if (t.equals(Table.STRUMENTAZIONE))
+//			query = "INSERT INTO mystrumentazione (";
+//		else if (t.equals(Table.DIPENDENTE))
+//			query = "INSERT INTO mydipendente (";
+//		else if (t.equals(Table.SPAZIO))
+//			query = "INSERT INTO myspazio (";
+//		else
+//			throw new Exception();
+//
+//		while (count < elem.length) {
+//			if (count != elem.length - 1)
+//				query = query + elem[count] + ",";
+//			else
+//				query = query + elem[count] + ") VALUES";
+//			count++;
+//		}
+//		query = query + "(";
+//		for (JTextField field1 : textField2) {
+//			query = query + "'" + field1.getText() + "',";
+//		}
+//		query = query.substring(0, query.length() - 1);
+//		query = query + ");";
+//		return query;
+//	}
+//
+//	/**
+//	 * List utility.
+//	 *
+//	 * @param list
+//	 *            the list
+//	 * @param query
+//	 *            the query
+//	 * @param id
+//	 *            the id
+//	 * @return the array list
+//	 * @throws Exception
+//	 * @listUtility
+//	 */
+//	public ArrayList<String> listUtility(ArrayList<String> list, String query, String id) throws Exception {
+//		DBManager mysql = DBManager.getInstance();
+//		int count = 0;
+//		ResultSet rs = mysql.querySelect(query);
+//		while (rs.next()) {
+//			count++;
+//			Integer temp = rs.getInt(id);
+//			list.add(temp.toString());
+//		}
+//		if (list.size() == count)
+//			return list;
+//		throw new Exception("Gli id non sono stati salvati correttamente");
+//	}
 }

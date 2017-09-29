@@ -23,7 +23,6 @@ import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Date;
 
 import javax.swing.Action;
 
@@ -269,9 +268,10 @@ public class ModificaStrumentazione extends JFrame {
 			boolean on = false;
 			
 			try {
-				on = c.controlId(textField, Table.STRUMENTAZIONE) && 
-						c.controlChar(textField_1,textField_2,textField_6,textField_3) &&
-						c.controlNUnità(textField_4) && c.controlYear(textField_5);
+				on = c.IDControl(textField, Table.STRUMENTAZIONE, this.getClass().getName()) && 
+						c.notEmptyStringControl(textField_1) && c.notEmptyStringControl(textField_2) &&
+						c.notEmptyStringControl(textField_6) && c.notEmptyStringControl(textField_3) &&
+						c.onlyNumFieldControl(textField_4) && c.dateControl(textField_5);
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
@@ -281,7 +281,7 @@ public class ModificaStrumentazione extends JFrame {
 				textList.add(textField);
 				textList.add(textField_1);
 				textList.add(textField_2);
-				textList.add(textField_6);
+				textList.add(textField_6); 
 				textList.add(textField_3);
 				textList.add(textField_4);
 				textList.add(textField_5);

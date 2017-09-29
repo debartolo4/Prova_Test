@@ -205,9 +205,10 @@ public class NuovaStrumentazione extends JFrame {
 			boolean on = false;
 			
 			try {
-				on = c.controlId(textField, Table.STRUMENTAZIONE) && 
-						c.controlChar(textField_1,textField_2,textField_6,textField_3) &&
-						c.controlNUnità(textField_4) && c.controlYear(textField_5);
+				on = c.IDControl(textField, Table.STRUMENTAZIONE, this.getClass().getName()) && 
+						c.notEmptyStringControl(textField_1) && c.notEmptyStringControl(textField_2) && 
+						c.notEmptyStringControl(textField_6) && c.notEmptyStringControl(textField_3) &&
+						c.onlyNumFieldControl(textField_4) && c.dateControl(textField_5);
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}

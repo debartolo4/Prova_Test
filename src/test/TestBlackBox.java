@@ -2,6 +2,7 @@ package test;
 
 import static org.junit.Assert.*;
 
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 import org.junit.After;
@@ -16,18 +17,21 @@ public class TestBlackBox {
 
 	private Controlli control;
 	private JTextField text;
+	private JPasswordField pass;
 	private static final String MATRICOLA = "634845"; 
 	
 	@Before
 	public void setUp() throws Exception {
 		control = new Controlli();
 		text = new JTextField();
+		pass = new JPasswordField();
 	}
 
 	@After
 	public void tearDown() throws Exception {
 		control = null;
 		text = null;
+		pass = null;
 		DBManager db = DBManager.getInstance();
 		db.query("DELETE FROM `mydipendente` WHERE `mydipendente`.`ID_Dipendente` = '" + MATRICOLA + "';" );
 	}
@@ -70,36 +74,36 @@ public class TestBlackBox {
 	// Controllo PASSWORD minore di 4 caratteri
 	@Test(expected = Exception.class)
 	public void testPasswordControlWithShortWord() throws Exception {
-		text.setText("4sd");
-		control.userControl(text);
+		pass.setText("4sd");
+		control.passwordControl(pass);
 	}
 
 	// Controllo PASSWORD maggiore di 20 caratteri
 	@Test(expected = Exception.class)
 	public void testPasswordControlWithLongWord() throws Exception {
-		text.setText("c0ntienepiudiv3nticaratteri");
-		control.userControl(text);
+		pass.setText("c0ntienepiudiv3nticaratteri");
+		control.passwordControl(pass);
 	}
 
 	// Controllo PASSWORD con almeno 1 numero e 1 lettera
 	@Test(expected = Exception.class)
 	public void testPasswordControlWithoutLetter() throws Exception {
-		text.setText("23121898");
-		control.passwordControl(text);
+		pass.setText("23121898");
+		control.passwordControl(pass);
 	}
 
 	// Controllo1 PASSWORD con almeno 1 numero e 1 lettera
 	@Test(expected = Exception.class)
 	public void testPasswordControlWithoutNumbers() throws Exception {
-		text.setText("password");
-		control.passwordControl(text);
+		pass.setText("password");
+		control.passwordControl(pass);
 	}
 
 	// Controllo PASSWORD valida
 	@Test
 	public void testPasswordControlAcceptedWord() throws Exception {
-		text.setText("passwordvalida2");
-		assertTrue(control.passwordControl(text));
+		pass.setText("passwordvalida2");
+		assertTrue(control.passwordControl(pass));
 	}
 
 	// Controllo SESSO non accettato
@@ -361,49 +365,49 @@ public class TestBlackBox {
 		assertTrue(control.cfControl(text));
 	}
 
-	// Controllo ID Dipendente con lettere
+	// Controllo ID nuovo dipendente con lettere
 	@Test(expected = Exception.class)
 	public void testIDDepWithLetters() throws Exception {
 		text.setText("ser444");
-		control.IDControl(text, Table.DIPENDENTE);
+		control.IDControl(text, Table.DIPENDENTE, "NuovoDipendente");
 	}
 
-	// Controllo ID Strumentazione con lettere
+	// Controllo ID nuova strumentazione con lettere
 	@Test(expected = Exception.class)
 	public void testIDToolWithLetters() throws Exception {
 		text.setText("ser444");
-		control.IDControl(text, Table.STRUMENTAZIONE);
+		control.IDControl(text, Table.STRUMENTAZIONE, "NuovoDipendente");
 	}
 
-	// Controllo ID Spazio con lettere
+	// Controllo ID nuovo spazio con lettere
 	@Test(expected = Exception.class)
 	public void testIDSpaceWithLetters() throws Exception {
 		text.setText("ser444");
-		control.IDControl(text, Table.SPAZIO);
+		control.IDControl(text, Table.SPAZIO, "NuovoDipendente");
 	}
 
-	// Controllo ID Dipendente con lettere
+	// Controllo ID nuovo dipendente con lettere
 	@Test
 	public void testIDDepAccepted() throws Exception {
 		text.setText("634444");
-		assertTrue(control.IDControl(text, Table.DIPENDENTE));
+		assertTrue(control.IDControl(text, Table.DIPENDENTE, "NuovoDipendente"));
 	}
 
-	// Controllo ID Dipendente con lettere
+	// Controllo ID nuovo dipendente con lettere
 	@Test
 	public void testIDToolAccepted() throws Exception {
 		text.setText("634444");
-		assertTrue(control.IDControl(text, Table.STRUMENTAZIONE));
+		assertTrue(control.IDControl(text, Table.STRUMENTAZIONE, "NuovoDipendente"));
 	}
 
-	// Controllo ID Dipendente con lettere
+	// Controllo ID nuovo dipendente con lettere
 	@Test
 	public void testIDSpaceAccepted() throws Exception {
 		text.setText("634444");
-		assertTrue(control.IDControl(text, Table.SPAZIO));
+		assertTrue(control.IDControl(text, Table.SPAZIO, "NuovoDipendente"));
 	}
 
-	// Controllo ID Dipendente duplicato
+	// Controllo ID nuovo dipendente duplicato
 	@Test(expected = Exception.class)
 	public void testIDDuplicated() throws Exception {
 		String queryTester = "INSERT INTO mydipendente (Nome,Cognome,Sesso,Data_di_nascita,"
@@ -413,7 +417,80 @@ public class TestBlackBox {
 		DBManager db = DBManager.getInstance();
 		db.query(queryTester);
 		text.setText(MATRICOLA);
-		control.IDControl(text, Table.DIPENDENTE);
+		control.IDControl(text, Table.DIPENDENTE, "NuovoDipendente");
 	}
 
+	//Controllo modifica ID dipendente con inserimento errato
+	@Test(expected = Exception.class)
+	public void testEditIDWrong() throws Exception {
+		String queryTester = "INSERT INTO mydipendente (Nome,Cognome,Sesso,Data_di_nascita,"
+				+ "Mail,Telefono,Domicilio,Mansione,ID_Dipendente,CF)VALUES ('Gianluca', 'de Bartolo',"
+				+ " 'M' , '1995-07-03', 'lr37@libero.it', '3314615156', 'via Rossi, 4', "
+				+ "'Bidello', " + MATRICOLA + ", 'DBRGLC95L03H926G' );";
+		DBManager db = DBManager.getInstance();
+		db.query(queryTester);
+		text.setText("634");
+		control.IDControl(text, Table.DIPENDENTE, "ModificaDipendente");
+	}
+	
+	//Controllo modifica ID dipendente con inserimento valido
+	@Test
+	public void testEditIDAccepted() throws Exception {
+		String queryTester = "INSERT INTO mydipendente (Nome,Cognome,Sesso,Data_di_nascita,"
+				+ "Mail,Telefono,Domicilio,Mansione,ID_Dipendente,CF)VALUES ('Gianluca', 'de Bartolo',"
+				+ " 'M' , '1995-07-03', 'lr37@libero.it', '3314615156', 'via Rossi, 4', "
+				+ "'Bidello', " + MATRICOLA + ", 'DBRGLC95L03H926G' );";
+		DBManager db = DBManager.getInstance();
+		db.query(queryTester);
+		text.setText("633333");
+		assertTrue(control.IDControl(text, Table.DIPENDENTE, "ModificaDipendente"));
+	}
+	//Controllo campo non vuoto con stringa nulla
+	@Test(expected = Exception.class)
+	public void testNotEmptyString() throws Exception {
+		text.setText("");
+		control.notEmptyStringControl(text);
+	}
+	
+	//Controllo campo non vuoto con stringa formata da uno spazio
+	@Test(expected = Exception.class)
+	public void testNotEmptyStringWithSpace() throws Exception {
+		text.setText(" ");
+		control.notEmptyStringControl(text);
+	}
+	
+	//Controllo del campo con una stringa accettata
+	@Test
+	public void testNotEmptyStringCorrectField() throws Exception {
+		text.setText("StringadiProva");
+		assertTrue(control.notEmptyStringControl(text));
+	}
+	
+	//Controllo numero unità possedute con un numero <0
+	@Test(expected = Exception.class)
+	public void testNegativeNumber() throws Exception {
+		text.setText("-12");
+		control.onlyNumFieldControl(text);
+	}
+	
+//	//Controllo numero unità possedute con uno spazio vuoto
+	@Test(expected = Exception.class)
+	public void testEmptySpace() throws Exception {
+		text.setText(" ");
+		control.onlyNumFieldControl(text);
+	}
+	
+	//Controllo numero unità possedute con una lettera
+	@Test(expected = Exception.class)
+	public void testLetter() throws Exception {
+		text.setText("e");
+		control.onlyNumFieldControl(text);
+	}
+	
+	//Controllo numero unità possedute con un numero accettato
+	@Test
+	public void testCorrectNumber() throws Exception {
+		text.setText("23");
+		assertTrue(control.onlyNumFieldControl(text));
+	}
 }

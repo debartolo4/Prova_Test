@@ -6,9 +6,6 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.regex.Matcher;
-import java.util.regex.Pattern;
-
 import javax.swing.AbstractAction;
 import javax.swing.Action;
 import javax.swing.JButton;
@@ -164,7 +161,7 @@ public class GraficaLogin extends JFrame {
 			
 			String name = null;
 			try {
-				if(c.userControl(textField.getText()))
+				if(c.userControl(textField))
 					name = textField.getText();
 			} catch (Exception e3) {
 				e3.printStackTrace();
@@ -172,7 +169,7 @@ public class GraficaLogin extends JFrame {
 			
 			String pass = null;
 			try {
-				if(c.controlPassword(String.copyValueOf(passwordField.getPassword())))
+				if(c.passwordControl(passwordField))
 					pass = String.copyValueOf(passwordField.getPassword());
 			} catch (Exception e2) {
 				e2.printStackTrace();
@@ -202,22 +199,6 @@ public class GraficaLogin extends JFrame {
 
 			}
 
-		}
-		
-			
-		
-		
-	
-	}
-	
-	
-
-	
-//	public static SwingAction getSubInstance() {
-//		
-//		return new SwingAction();
-//	}
-//	
-	
-	
+		}	
+	}	
 }
