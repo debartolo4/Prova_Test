@@ -17,6 +17,7 @@ public class Controlli {
 	// - Deve contenere da 4 (compreso) a 20 (escluso) caratteri;
 	// - Deve contenere almeno un numero e una lettera;
 	// - Non deve contenere caratteri speciali;
+	// - Non può terminare con ".".
 	public boolean userControl(JTextField text) throws Exception {
 		String user = text.getText();
 
@@ -35,7 +36,6 @@ public class Controlli {
 	// CONTROLLO PASSWORD
 	// -Lunghezza da 4 a 20 caratteri;
 	// -Contenere almeno 1 numero e 1 lettera;
-	// -Contenere almeno 1 lettera maiuscola;
 	public boolean passwordControl(JPasswordField pass) throws Exception {
 		String password = String.copyValueOf(pass.getPassword());
 
@@ -210,7 +210,7 @@ public class Controlli {
 		if (cf.matches("^[A-Z]{6}\\d{2}[A-Z]\\d{2}[A-Z]\\d{3}[A-Z]$")) {
 			if (cf.substring(8, 9).matches("^[^F,G,I,J,K,N,O,Q,U,V,W,X,Y,Z]$")) {
 				Integer bornDay = Integer.parseInt(cf.substring(9, 11));
-				if (bornDay <= 31) {
+				if (bornDay <= 31 && bornDay != 0) {
 					return true;
 				}
 			}
@@ -269,7 +269,7 @@ public class Controlli {
 	}
 
 	// CONTROLLO NUMERO UNITA' POSSEDUTE
-	// Controllare che il campo non sia una lettera e che il numero sia >0
+	// Controllare che il campo non sia una lettera e che il numero sia >= 0
 	public boolean onlyNumFieldControl(JTextField text) throws Exception {
 		String field = text.getText();
 

@@ -18,8 +18,8 @@ public class TestBlackBox {
 	private Controlli control;
 	private JTextField text;
 	private JPasswordField pass;
-	private static final String MATRICOLA = "634845"; 
-	
+	private static final String MATRICOLA = "634845";
+
 	@Before
 	public void setUp() throws Exception {
 		control = new Controlli();
@@ -33,13 +33,20 @@ public class TestBlackBox {
 		text = null;
 		pass = null;
 		DBManager db = DBManager.getInstance();
-		db.query("DELETE FROM `mydipendente` WHERE `mydipendente`.`ID_Dipendente` = '" + MATRICOLA + "';" );
+		db.query("DELETE FROM `mydipendente` WHERE `mydipendente`.`ID_Dipendente` = '" + MATRICOLA + "';");
 	}
 
 	// Controllo USERNAME minore di 4 caratteri
 	@Test(expected = Exception.class)
 	public void testUserControlWithShortWord() throws Exception {
-		text.setText("shr");
+		text.setText("sh3");
+		control.userControl(text);
+	}
+
+	// Controllo USERNAME di 20 caratteri
+	@Test(expected = Exception.class)
+	public void testUserControlWithLongWord() throws Exception {
+		text.setText("sgfhghjklkjhgfdstru9");
 		control.userControl(text);
 	}
 
@@ -61,6 +68,13 @@ public class TestBlackBox {
 	@Test(expected = Exception.class)
 	public void testUserControlWithPoint() throws Exception {
 		text.setText("conpunto3.");
+		control.userControl(text);
+	}
+
+	// COntrollo USERNAME con caratteri speciali
+	@Test(expected = Exception.class)
+	public void testUserControlWithSpecialChar() throws Exception {
+		text.setText("conSpeci$char3");
 		control.userControl(text);
 	}
 
@@ -120,7 +134,14 @@ public class TestBlackBox {
 		assertTrue(control.sexControl(text));
 	}
 
-	// Controllo NOME non accettato
+	// Controllo NOME non accettato (numeri)
+	@Test(expected = Exception.class)
+	public void testNameControlWithNumbers() throws Exception {
+		text.setText("Cont3ngounnumero");
+		control.nameControl(text);
+	}
+
+	// Controllo NOME non accettato (comincia con minuscola)
 	@Test(expected = Exception.class)
 	public void testNameControlNotAccepted() throws Exception {
 		text.setText("inizioconlaminuscola");
@@ -169,7 +190,14 @@ public class TestBlackBox {
 		control.dateControl(text);
 	}
 
-	// Controllo DATA non accettata
+	// Controllo DATA (con lettere)
+	@Test(expected = Exception.class)
+	public void testDateNotDate() throws Exception {
+		text.setText("aaaa-mm-gg");
+		control.dateControl(text);
+	}
+
+	// Controllo DATA non accettata (non esistente)
 	@Test(expected = Exception.class)
 	public void testDateNotAccepted() throws Exception {
 		text.setText("2012-02-30");
@@ -239,10 +267,31 @@ public class TestBlackBox {
 		control.emailControl(text);
 	}
 
+	// Controllo E-MAIL con '.' prima di '.dom'
+	@Test(expected = Exception.class)
+	public void testEmailWithDotBeforeDom() throws Exception {
+		text.setText("lamiaemail.@account..dom");
+		control.emailControl(text);
+	}
+
 	// Controllo E-MAIL con dominio di lunghezza maggiore di tre
 	@Test(expected = Exception.class)
 	public void testEmailWithNotAcceptedDom() throws Exception {
 		text.setText("lamiaemail@account.long");
+		control.emailControl(text);
+	}
+
+	// Controllo E-MAIL con dominio di lunghezza minore di due
+	@Test(expected = Exception.class)
+	public void testEmailWithNotAcceptedDom1() throws Exception {
+		text.setText("lamiaemail@account.s");
+		control.emailControl(text);
+	}
+
+	// Controllo E-MAIL con più di un punto nel dominio
+	@Test(expected = Exception.class)
+	public void testEmailWithTwoDot() throws Exception {
+		text.setText("lamiaemail@acc.o.unt.s");
 		control.emailControl(text);
 	}
 
@@ -278,6 +327,13 @@ public class TestBlackBox {
 	@Test
 	public void testPhoneNumberWhitPrefix() throws Exception {
 		text.setText("+393334615154");
+		assertTrue(control.phoneControl(text));
+	}
+
+	// Controllo NUMERO DI TELEFONO con "-" anzichè "+"
+	@Test(expected = Exception.class)
+	public void testPhoneNumberWhitWrongPrefix() throws Exception {
+		text.setText("-393334615154");
 		assertTrue(control.phoneControl(text));
 	}
 
@@ -330,9 +386,23 @@ public class TestBlackBox {
 		assertTrue(control.addressControl(text));
 	}
 
-	// Controllo CODICE FISCALE con lunghezza errata
+	// Controllo CODICE FISCALE con formato errato
+	@Test(expected = Exception.class)
+	public void testCfWrongFormat() throws Exception {
+		text.setText("DBR3LC95L03H926X");
+		control.cfControl(text);
+	}
+
+	// Controllo CODICE FISCALE con lunghezza errata (>16)
 	@Test(expected = Exception.class)
 	public void testCfTooLong() throws Exception {
+		text.setText("DBRGLC95L03H926GGBFVG6");
+		control.cfControl(text);
+	}
+
+	// Controllo CODICE FISCALE con lunghezza errata (<16)
+	@Test(expected = Exception.class)
+	public void testCfTooShort() throws Exception {
 		text.setText("DBRGLC95L03");
 		control.cfControl(text);
 	}
@@ -351,6 +421,13 @@ public class TestBlackBox {
 		control.cfControl(text);
 	}
 
+	// Controllo CODICE FISCALE con giorno del mese uguale a zero
+	@Test(expected = Exception.class)
+	public void testCfWithDayZero() throws Exception {
+		text.setText("DBRGLC95L00H926G");
+		control.cfControl(text);
+	}
+
 	// Controllo CODICE FISCALE con minuscole (deve essere accettato comunque)
 	@Test
 	public void testCfLowerCase() throws Exception {
@@ -365,10 +442,31 @@ public class TestBlackBox {
 		assertTrue(control.cfControl(text));
 	}
 
+	// Controllo ID nuovo dipendente troppo corto
+	@Test(expected = Exception.class)
+	public void testIDTooShort() throws Exception {
+		text.setText("444");
+		control.IDControl(text, Table.DIPENDENTE, "NuovoDipendente");
+	}
+
+	// Controllo ID nuovo dipendente troppo lungo
+	@Test(expected = Exception.class)
+	public void testIDTooLong() throws Exception {
+		text.setText("4444444");
+		control.IDControl(text, Table.DIPENDENTE, "NuovoDipendente");
+	}
+
 	// Controllo ID nuovo dipendente con lettere
 	@Test(expected = Exception.class)
 	public void testIDDepWithLetters() throws Exception {
 		text.setText("ser444");
+		control.IDControl(text, Table.DIPENDENTE, "NuovoDipendente");
+	}
+
+	// Controllo ID nuovo dipendente con caratteri speciali
+	@Test(expected = Exception.class)
+	public void testIDSpecChar() throws Exception {
+		text.setText("444$44");
 		control.IDControl(text, Table.DIPENDENTE, "NuovoDipendente");
 	}
 
@@ -412,82 +510,83 @@ public class TestBlackBox {
 	public void testIDDuplicated() throws Exception {
 		String queryTester = "INSERT INTO mydipendente (Nome,Cognome,Sesso,Data_di_nascita,"
 				+ "Mail,Telefono,Domicilio,Mansione,ID_Dipendente,CF)VALUES ('Gianluca', 'de Bartolo',"
-				+ " 'M' , '1995-07-03', 'lr37@libero.it', '3314615156', 'via Rossi, 4', "
-				+ "'Bidello', " + MATRICOLA + ", 'DBRGLC95L03H926G' );";
+				+ " 'M' , '1995-07-03', 'lr37@libero.it', '3314615156', 'via Rossi, 4', " + "'Bidello', " + MATRICOLA
+				+ ", 'DBRGLC95L03H926G' );";
 		DBManager db = DBManager.getInstance();
 		db.query(queryTester);
 		text.setText(MATRICOLA);
 		control.IDControl(text, Table.DIPENDENTE, "NuovoDipendente");
 	}
 
-	//Controllo modifica ID dipendente con inserimento errato
+	// Controllo modifica ID dipendente con inserimento errato
 	@Test(expected = Exception.class)
 	public void testEditIDWrong() throws Exception {
 		String queryTester = "INSERT INTO mydipendente (Nome,Cognome,Sesso,Data_di_nascita,"
 				+ "Mail,Telefono,Domicilio,Mansione,ID_Dipendente,CF)VALUES ('Gianluca', 'de Bartolo',"
-				+ " 'M' , '1995-07-03', 'lr37@libero.it', '3314615156', 'via Rossi, 4', "
-				+ "'Bidello', " + MATRICOLA + ", 'DBRGLC95L03H926G' );";
+				+ " 'M' , '1995-07-03', 'lr37@libero.it', '3314615156', 'via Rossi, 4', " + "'Bidello', " + MATRICOLA
+				+ ", 'DBRGLC95L03H926G' );";
 		DBManager db = DBManager.getInstance();
 		db.query(queryTester);
 		text.setText("634");
 		control.IDControl(text, Table.DIPENDENTE, "ModificaDipendente");
 	}
-	
-	//Controllo modifica ID dipendente con inserimento valido
+
+	// Controllo modifica ID dipendente con inserimento valido
 	@Test
 	public void testEditIDAccepted() throws Exception {
 		String queryTester = "INSERT INTO mydipendente (Nome,Cognome,Sesso,Data_di_nascita,"
 				+ "Mail,Telefono,Domicilio,Mansione,ID_Dipendente,CF)VALUES ('Gianluca', 'de Bartolo',"
-				+ " 'M' , '1995-07-03', 'lr37@libero.it', '3314615156', 'via Rossi, 4', "
-				+ "'Bidello', " + MATRICOLA + ", 'DBRGLC95L03H926G' );";
+				+ " 'M' , '1995-07-03', 'lr37@libero.it', '3314615156', 'via Rossi, 4', " + "'Bidello', " + MATRICOLA
+				+ ", 'DBRGLC95L03H926G' );";
 		DBManager db = DBManager.getInstance();
 		db.query(queryTester);
 		text.setText("633333");
 		assertTrue(control.IDControl(text, Table.DIPENDENTE, "ModificaDipendente"));
 	}
-	//Controllo campo non vuoto con stringa nulla
+
+	// Controllo campo non vuoto con stringa nulla
 	@Test(expected = Exception.class)
 	public void testNotEmptyString() throws Exception {
 		text.setText("");
 		control.notEmptyStringControl(text);
 	}
-	
-	//Controllo campo non vuoto con stringa formata da uno spazio
+
+	// Controllo campo non vuoto con stringa formata da uno spazio
 	@Test(expected = Exception.class)
 	public void testNotEmptyStringWithSpace() throws Exception {
 		text.setText(" ");
 		control.notEmptyStringControl(text);
 	}
-	
-	//Controllo del campo con una stringa accettata
+
+	// Controllo del campo con una stringa accettata
 	@Test
 	public void testNotEmptyStringCorrectField() throws Exception {
 		text.setText("StringadiProva");
 		assertTrue(control.notEmptyStringControl(text));
 	}
-	
-	//Controllo numero unità possedute con un numero <0
+
+	// Controllo numero unità possedute con un numero <0
 	@Test(expected = Exception.class)
 	public void testNegativeNumber() throws Exception {
 		text.setText("-12");
 		control.onlyNumFieldControl(text);
 	}
-	
-//	//Controllo numero unità possedute con uno spazio vuoto
+
+	// //Controllo numero unità possedute con uno spazio vuoto
 	@Test(expected = Exception.class)
 	public void testEmptySpace() throws Exception {
 		text.setText(" ");
 		control.onlyNumFieldControl(text);
 	}
-	
-	//Controllo numero unità possedute con una lettera
+
+	// Controllo numero unità possedute con una lettera
 	@Test(expected = Exception.class)
 	public void testLetter() throws Exception {
 		text.setText("e");
 		control.onlyNumFieldControl(text);
 	}
-	
-	//Controllo numero unità possedute con un numero accettato
+
+	// Controllo numero unità possedute con un numero accettato
 	@Test
 	public void testCorrectNumber() throws Exception {
 		text.setText("23");
