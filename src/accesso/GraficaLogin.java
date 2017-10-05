@@ -174,7 +174,7 @@ public class GraficaLogin extends JFrame {
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
-			String query = "SELECT * FROM listaUtenti WHERE username = ? AND password = ? ;";
+			String query = "SELECT * FROM lista_utenti WHERE Username = ? AND Password = ? ;";
 			DBManager mysql = DBManager.getInstance();
 
 			System.out.println(name + " " + pass);

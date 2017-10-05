@@ -80,7 +80,7 @@ public class GestioneSchedario extends JFrame {
 
 		try {
 			comboBox.setModel(new DefaultComboBoxModel(c.listUtility(listaDipendenti,
-					"SELECT ID_Dipendente from mydipendente", "ID_Dipendente").toArray(new String[20])));
+					"SELECT ID_Dipendente from dipendente", "ID_Dipendente").toArray(new String[20])));
 		} catch (Exception e) {
 			
 			e.printStackTrace();
@@ -93,7 +93,7 @@ public class GestioneSchedario extends JFrame {
 
 		try {
 			comboBox_1.setModel(new DefaultComboBoxModel( c.listUtility(listaSpazi,
-					"SELECT ID_Spazio from myspazio", "ID_Spazio").toArray(new String[20])));
+					"SELECT ID_Spazio from spazio", "ID_Spazio").toArray(new String[20])));
 		} catch (Exception e) {
 			
 			e.printStackTrace();
@@ -106,7 +106,7 @@ public class GestioneSchedario extends JFrame {
 
 		try {
 			comboBox_2.setModel(new DefaultComboBoxModel(c.listUtility(listaStrumentazioni,
-					"SELECT ID_Strumento from mystrumentazione", "ID_Strumento").toArray(new String[20])));
+					"SELECT ID_Strumento from strumentazione", "ID_Strumento").toArray(new String[20])));
 		} catch (Exception e) {
 			
 			e.printStackTrace();
@@ -131,7 +131,7 @@ public class GestioneSchedario extends JFrame {
 		lblIdStrumentazione.setBounds(340, 77, 136, 14);
 		contentPane.add(lblIdStrumentazione);
 		
-		String q = "SELECT ID_Dipendente FROM myschedario;"; 
+		String q = "SELECT ID_Dipendente FROM schedario;"; 
 		
 		
 		countDipendenti(q);
@@ -171,7 +171,7 @@ public class GestioneSchedario extends JFrame {
 		
 		table = new JTable();
 		 
-		String que = "SELECT * FROM myschedario;"; 
+		String que = "SELECT * FROM schedario;"; 
 		 
 		ResultSet rs = mysql.querySelect(que);
 		
@@ -231,7 +231,7 @@ public class GestioneSchedario extends JFrame {
 		 */
 		public void actionPerformed(ActionEvent e) {
 			
-			String query = "INSERT INTO myschedario (ID_Dipendente, ID_Spazio, ID_Strumento) VALUES ";
+			String query = "INSERT INTO schedario (ID_Dipendente, ID_Spazio, ID_Strumento) VALUES ";
 			
 			String vTemp = "(?, ?, ?);";
 			

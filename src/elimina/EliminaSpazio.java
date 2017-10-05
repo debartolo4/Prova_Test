@@ -125,7 +125,7 @@ public class EliminaSpazio extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				String id = textField_10.getText();
 				
-				String query = "SELECT * FROM myspazio WHERE ID_Spazio = ?";
+				String query = "SELECT * FROM spazio WHERE ID_Spazio = ?";
 
 				DBManager mysql = DBManager.getInstance();
 				ResultSet rs = mysql.querySelect(query, id);
@@ -163,7 +163,7 @@ public class EliminaSpazio extends JFrame {
 			 */
 			public void actionPerformed(ActionEvent e) {
 				String id = textField_10.getText();
-				String query = "SELECT * FROM myspazio WHERE ID_Spazio = ?";
+				String query = "SELECT * FROM spazio WHERE ID_Spazio = ?";
 				DBManager mysql = DBManager.getInstance();
 				ResultSet rs = mysql.querySelect(query, id);
 			    
@@ -227,7 +227,7 @@ public class EliminaSpazio extends JFrame {
 			if(textField.getText() != null && textField_1.getText() != null && textField_2.getText() != null
 					&& textField_10.getText() != null) {
 				
-				String query = "DELETE FROM myspazio WHERE ID_Spazio = ?;";
+				String query = "DELETE FROM spazio WHERE ID_Spazio = ?;";
 				
 				DBManager mysql = DBManager.getInstance();
 				mysql.query(query, textField_10.getText());

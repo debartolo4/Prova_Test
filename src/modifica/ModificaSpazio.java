@@ -80,7 +80,7 @@ public class ModificaSpazio extends JFrame {
 			 */
 			public void actionPerformed(ActionEvent e) {
 				String id = textField_10.getText();
-				String query = "SELECT * FROM myspazio WHERE ID_Spazio = ?";
+				String query = "SELECT * FROM spazio WHERE ID_Spazio = ?";
 				DBManager mysql = DBManager.getInstance();
 				ResultSet rs = mysql.querySelect(query, id);
 
@@ -129,7 +129,7 @@ public class ModificaSpazio extends JFrame {
 			public void actionPerformed(ActionEvent arg0) {
 				String id = textField_10.getText();
 
-				String query = "SELECT * FROM myspazio WHERE ID_Spazio = ?";
+				String query = "SELECT * FROM spazio WHERE ID_Spazio = ?";
 				DBManager mysql = DBManager.getInstance();
 				ResultSet rs = mysql.querySelect(query, id);
 
@@ -230,9 +230,9 @@ public class ModificaSpazio extends JFrame {
 				textList.add(textField_1);
 				textList.add(textField_2);
 
-				if (textList.isEmpty()) {
+				if (!textList.isEmpty()) {
 
-					String query = "UPDATE myspazio SET ID_Spazio= ? AND Nome= ?  AND "
+					String query = "UPDATE spazio SET ID_Spazio= ? , Nome= ?  , "
 							+ "Descrizione = ?  WHERE ID_Spazio = ?;";
 
 					DBManager mysql = DBManager.getInstance();

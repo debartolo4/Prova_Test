@@ -33,7 +33,7 @@ public class TestBlackBox {
 		text = null;
 		pass = null;
 		DBManager db = DBManager.getInstance();
-		db.query("DELETE FROM `mydipendente` WHERE `mydipendente`.`ID_Dipendente` = '" + MATRICOLA + "';");
+		db.query("DELETE FROM `dipendente` WHERE `dipendente`.`ID_Dipendente` = '" + MATRICOLA + "';");
 	}
 
 	// Controllo USERNAME minore di 4 caratteri
@@ -120,20 +120,6 @@ public class TestBlackBox {
 		assertTrue(control.passwordControl(pass));
 	}
 
-	// Controllo SESSO non accettato
-	@Test(expected = Exception.class)
-	public void testSexControlNotAccepted() throws Exception {
-		text.setText("NONVALIDO");
-		control.sexControl(text);
-	}
-
-	// Controllo SESSO accettato
-	@Test
-	public void testSexControlAccepted() throws Exception {
-		text.setText("M");
-		assertTrue(control.sexControl(text));
-	}
-
 	// Controllo NOME non accettato (numeri)
 	@Test(expected = Exception.class)
 	public void testNameControlWithNumbers() throws Exception {
@@ -167,20 +153,6 @@ public class TestBlackBox {
 	public void testSurnameControlAccepted() throws Exception {
 		text.setText("de Bartolo");
 		assertTrue(control.surnameControl(text));
-	}
-
-	// Controllo TASK non accettato
-	@Test(expected = Exception.class)
-	public void testTaskControlNotAccepted() throws Exception {
-		text.setText("Mansione non accettata 3");
-		control.taskControl(text);
-	}
-
-	// Controllo TASK accettato
-	@Test
-	public void testTaskControlAccepted() throws Exception {
-		text.setText("Mansione accettata");
-		assertTrue(control.taskControl(text));
 	}
 
 	// Controllo DATA con delimitatori sbagliati
@@ -487,7 +459,7 @@ public class TestBlackBox {
 	// Controllo ID nuovo dipendente con lettere
 	@Test
 	public void testIDDepAccepted() throws Exception {
-		text.setText("634444");
+		text.setText("634440");
 		assertTrue(control.IDControl(text, Table.DIPENDENTE, "NuovoDipendente"));
 	}
 
@@ -508,10 +480,10 @@ public class TestBlackBox {
 	// Controllo ID nuovo dipendente duplicato
 	@Test(expected = Exception.class)
 	public void testIDDuplicated() throws Exception {
-		String queryTester = "INSERT INTO mydipendente (Nome,Cognome,Sesso,Data_di_nascita,"
+		String queryTester = "INSERT INTO dipendente (Nome,Cognome,Sesso,Data_di_nascita,"
 				+ "Mail,Telefono,Domicilio,Mansione,ID_Dipendente,CF)VALUES ('Gianluca', 'de Bartolo',"
-				+ " 'M' , '1995-07-03', 'lr37@libero.it', '3314615156', 'via Rossi, 4', " + "'Bidello', " + MATRICOLA
-				+ ", 'DBRGLC95L03H926G' );";
+				+ " 'M' , '1995-07-03', 'lr37@libero.it', '3314615156', 'via Rossi, 4', " + "'4', " + MATRICOLA
+				+ ", 'DBRGLC95L03H826G' );";
 		DBManager db = DBManager.getInstance();
 		db.query(queryTester);
 		text.setText(MATRICOLA);
@@ -521,10 +493,10 @@ public class TestBlackBox {
 	// Controllo modifica ID dipendente con inserimento errato
 	@Test(expected = Exception.class)
 	public void testEditIDWrong() throws Exception {
-		String queryTester = "INSERT INTO mydipendente (Nome,Cognome,Sesso,Data_di_nascita,"
+		String queryTester = "INSERT INTO dipendente (Nome,Cognome,Sesso,Data_di_nascita,"
 				+ "Mail,Telefono,Domicilio,Mansione,ID_Dipendente,CF)VALUES ('Gianluca', 'de Bartolo',"
-				+ " 'M' , '1995-07-03', 'lr37@libero.it', '3314615156', 'via Rossi, 4', " + "'Bidello', " + MATRICOLA
-				+ ", 'DBRGLC95L03H926G' );";
+				+ " 'M' , '1995-07-03', 'lr37@libero.it', '3314615156', 'via Rossi, 4', " + "'4', " + MATRICOLA
+				+ ", 'DBRGLC95L03H826G' );";
 		DBManager db = DBManager.getInstance();
 		db.query(queryTester);
 		text.setText("634");
@@ -534,10 +506,10 @@ public class TestBlackBox {
 	// Controllo modifica ID dipendente con inserimento valido
 	@Test
 	public void testEditIDAccepted() throws Exception {
-		String queryTester = "INSERT INTO mydipendente (Nome,Cognome,Sesso,Data_di_nascita,"
+		String queryTester = "INSERT INTO dipendente (Nome,Cognome,Sesso,Data_di_nascita,"
 				+ "Mail,Telefono,Domicilio,Mansione,ID_Dipendente,CF)VALUES ('Gianluca', 'de Bartolo',"
-				+ " 'M' , '1995-07-03', 'lr37@libero.it', '3314615156', 'via Rossi, 4', " + "'Bidello', " + MATRICOLA
-				+ ", 'DBRGLC95L03H926G' );";
+				+ " 'M' , '1995-07-03', 'lr37@libero.it', '3314615156', 'via Rossi, 4', " + "'4', " + MATRICOLA
+				+ ", 'DBRGLC95L03H826G' );";
 		DBManager db = DBManager.getInstance();
 		db.query(queryTester);
 		text.setText("633333");

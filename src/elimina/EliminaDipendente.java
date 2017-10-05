@@ -156,7 +156,7 @@ public class EliminaDipendente extends JFrame {
 
 				String id = textField.getText();
 				
-				String query = "SELECT * FROM mydipendente WHERE ID_Dipendente = ?";
+				String query = "SELECT * FROM dipendente WHERE ID_Dipendente = ?";
 
 				DBManager mysql = DBManager.getInstance();
 				ResultSet rs = mysql.querySelect(query, id);
@@ -193,7 +193,7 @@ public class EliminaDipendente extends JFrame {
 			 */
 			public void actionPerformed(ActionEvent e) {
 				String id = textField.getText();
-				String query = "SELECT * FROM mydipendente WHERE ID_Dipendente = ?";
+				String query = "SELECT * FROM dipendente WHERE ID_Dipendente = ?";
 				DBManager mysql = DBManager.getInstance();
 				ResultSet rs = mysql.querySelect(query, id);
 			    
@@ -207,7 +207,7 @@ public class EliminaDipendente extends JFrame {
 				      
 						String sesso= rs.getString("Sesso");
 				      
-						String data= rs.getString("data_di_nascita");
+						String data= rs.getString("Data_Di_Nascita");
 				       
 						String mail= rs.getString("Mail");
 				      
@@ -342,7 +342,7 @@ public class EliminaDipendente extends JFrame {
 		 */
 		public void actionPerformed(ActionEvent e) {
 			String id = textField.getText();
-			String query = "DELETE FROM mydipendente WHERE ID_Dipendente = ?";
+			String query = "DELETE FROM dipendente WHERE ID_Dipendente = ?";
 			DBManager mysql = DBManager.getInstance();
 			mysql.query(query, id);
 			

@@ -162,7 +162,7 @@ public class NuovaStrumentazione extends JFrame {
 		lblNunit.setBounds(setS[0], setS[1], setS[2], setS[3]);
 		panel.add(lblNunit);
 		
-		JLabel lblAnnoAcquisto = new JLabel("Anno acquisto");
+		JLabel lblAnnoAcquisto = new JLabel("Data acquisto");
 		int[] setT = {188, 149, 87, 14};
 		lblAnnoAcquisto.setBounds(setT[0], setT[1], setT[2], setT[3]);
 		panel.add(lblAnnoAcquisto);
@@ -214,6 +214,7 @@ public class NuovaStrumentazione extends JFrame {
 			}
 
 			if(on) {
+				textList.add(textField);
 				textList.add(textField_1);
 				textList.add(textField_2);
 				textList.add(textField_6);
@@ -232,7 +233,7 @@ public class NuovaStrumentazione extends JFrame {
 					String query = null;
 					try {
 						query = c.getQuery(textList, Table.STRUMENTAZIONE, "ID_Strumento", "Marca", "Modello",
-								"Nome", "Tipologia", "NrUnitaPossedute", "AnnoAcquisto");
+								"Nome", "Tipologia", "Nr_Unita_Possedute", "Anno_Acquisto");
 					} catch (Exception e1) {
 						
 						e1.printStackTrace();

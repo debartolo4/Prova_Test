@@ -1,9 +1,2 @@
-Dipendente:2	Spazio:1	Strumento:2
-Dipendente:3	Spazio:1	Strumento:2
-Dipendente:5	Spazio:1	Strumento:2
-Dipendente:6	Spazio:1	Strumento:2
-Dipendente:10	Spazio:1	Strumento:2
-Dipendente:64	Spazio:1	Strumento:2
-Dipendente:116645	Spazio:1	Strumento:2
-Dipendente:123456	Spazio:1	Strumento:2
-Dipendente:10	Spazio:9	Strumento:5
+Dipendente:634444	Spazio:987676	Strumento:123000
+Dipendente:630999	Spazio:987676	Strumento:2

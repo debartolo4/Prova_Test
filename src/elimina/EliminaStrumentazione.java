@@ -84,7 +84,7 @@ public class EliminaStrumentazione extends JFrame {
 			 */
 			public void actionPerformed(ActionEvent e) {
 				String id = textField_7.getText();
-				String query = "SELECT * FROM mystrumentazione WHERE ID_Strumento = ?";
+				String query = "SELECT * FROM strumentazione WHERE ID_Strumento = ?";
 				DBManager mysql = DBManager.getInstance();
 				ResultSet rs = mysql.querySelect(query, id);
 			    
@@ -95,8 +95,8 @@ public class EliminaStrumentazione extends JFrame {
 				       String modello= rs.getString("Modello");
 				       String nome=rs.getString("Nome");
 				       String tipologia=rs.getString("Tipologia");
-				       int unita=rs.getInt("NrUnitaPossedute");
-				       Date data= rs.getDate("AnnoAcquisto");
+				       int unita=rs.getInt("Nr_Unita_Possedute");
+				       Date data= rs.getDate("Anno_Acquisto");
 				       
 				       textField.setText(""+id1);
 				       textField_1.setText(marca);
@@ -263,7 +263,7 @@ public class EliminaStrumentazione extends JFrame {
 				lblSpazioAggiuntoCon.setBounds(48, 188, 278, 14);
 				contentPane.add(lblSpazioAggiuntoCon);
 				
-				String query = "DELETE FROM mystrumentazione WHERE ID_Strumento = ?;";
+				String query = "DELETE FROM strumentazione WHERE ID_Strumento = ?;";
 				
 				DBManager mysql = DBManager.getInstance();
 				mysql.query(query, textField_7.getText());

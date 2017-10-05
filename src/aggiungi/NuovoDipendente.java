@@ -1,16 +1,21 @@
 package aggiungi;
 
+import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.util.ArrayList;
 
 import javax.swing.AbstractAction;
 import javax.swing.Action;
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JList;
 import javax.swing.JPanel;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.ListSelectionModel;
 import javax.swing.border.EmptyBorder;
 
 import control.Controlli;
@@ -34,8 +39,9 @@ public class NuovoDipendente extends JFrame {
 	/** The text field 1. */
 	private JTextField textField_1;
 
-	/** The text field 2. */
-	private JTextField textField_2;
+	/** The list 2. */
+	private JList<String> lista_2;
+	private DefaultListModel<String> listModel = new DefaultListModel<String>();
 
 	/** The text field 3. */
 	private JTextField textField_3;
@@ -59,7 +65,8 @@ public class NuovoDipendente extends JFrame {
 	private final Action action = new SwingAction();
 
 	/** The text field 9. */
-	private JTextField textField_9;
+	private JList<String> lista_9;
+	private DefaultListModel<String> listModel2 = new DefaultListModel<String>();
 
 	/**
 	 * Create the frame.
@@ -127,11 +134,20 @@ public class NuovoDipendente extends JFrame {
 		contentPane.add(textField_1);
 		textField_1.setColumns(com);
 
-		textField_2 = new JTextField();
+		listModel.addElement("M");
+		listModel.addElement("F");
+		lista_2 = new JList<String>(listModel);
 		int[] tetN = { 109, 111, 86, 20 };
-		textField_2.setBounds(tetN[0], tetN[1], tetN[2], tetN[3]);
-		contentPane.add(textField_2);
-		textField_2.setColumns(com);
+		lista_2.setBounds(tetN[0], tetN[1], tetN[2], tetN[3]);
+		lista_2.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+		lista_2.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		lista_2.setVisibleRowCount(-1);
+		JScrollPane listScroller = new JScrollPane(lista_2);
+		listScroller.setPreferredSize(new Dimension(250, 80));
+		contentPane.add(lista_2);
+		// listScroller.setColumnHeader(com);
+		// contentPane.add(textField_2);
+		// textField_2.setColumns(com);
 
 		textField_3 = new JTextField();
 		int[] tetO = { 109, 136, 86, 20 };
@@ -158,23 +174,23 @@ public class NuovoDipendente extends JFrame {
 		textField_6.setColumns(com);
 
 		JLabel lblId = new JLabel("ID");
-		int[] tetS = { 231, 89, 18, 14 };
+		int[] tetS = { 231, 129, 18, 14 };
 		lblId.setBounds(tetS[0], tetS[1], tetS[2], tetS[3]);
 		contentPane.add(lblId);
 
 		textField_7 = new JTextField();
-		int[] tetT = { 282, 86, 86, 20 };
+		int[] tetT = { 282, 126, 86, 20 };
 		textField_7.setBounds(tetT[0], tetT[1], tetT[2], tetT[3]);
 		contentPane.add(textField_7);
 		textField_7.setColumns(com);
 
 		JLabel lblNewLabel_1 = new JLabel("CF");
-		int[] tetU = { 231, 114, 18, 14 };
+		int[] tetU = { 231, 154, 18, 14 };
 		lblNewLabel_1.setBounds(tetU[0], tetU[1], tetU[2], tetU[3]);
 		contentPane.add(lblNewLabel_1);
 
 		textField_8 = new JTextField();
-		int[] tetV = { 282, 111, 86, 20 };
+		int[] tetV = { 282, 151, 86, 20 };
 		textField_8.setBounds(tetV[0], tetV[1], tetV[2], tetV[3]);
 		contentPane.add(textField_8);
 		textField_8.setColumns(com);
@@ -183,7 +199,7 @@ public class NuovoDipendente extends JFrame {
 		btnNewButton.setAction(action);
 		int plays = 18;
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, plays));
-		int[] tetW = { 247, 160, 152, 59 };
+		int[] tetW = { 247, 180, 152, 59 };
 		btnNewButton.setBounds(tetW[0], tetW[1], tetW[2], tetW[3]);
 		contentPane.add(btnNewButton);
 
@@ -192,12 +208,25 @@ public class NuovoDipendente extends JFrame {
 		lblMansione.setBounds(tetX[0], tetX[1], tetX[2], tetX[3]);
 		contentPane.add(lblMansione);
 
-		textField_9 = new JTextField();
-		int[] tetY = { 282, 61, 86, 20 };
-		textField_9.setBounds(tetY[0], tetY[1], tetY[2], tetY[3]);
-		contentPane.add(textField_9);
-		textField_9.setColumns(com);
+//		textField_9 = new JTextField();
+//		int[] tetY = { 282, 61, 86, 20 };
+//		textField_9.setBounds(tetY[0], tetY[1], tetY[2], tetY[3]);
+//		contentPane.add(textField_9);
+//		textField_9.setColumns(com);
 
+		listModel2.addElement("Direttore");
+		listModel2.addElement("Dipendente");
+		listModel2.addElement("Collaboratore");
+		lista_9 = new JList<String>(listModel2);
+		int[] tetZ = { 282, 61, 86, 60 };
+		lista_9.setBounds(tetZ[0], tetZ[1], tetZ[2], tetZ[3]);
+		lista_9.setSelectionMode(ListSelectionModel.MULTIPLE_INTERVAL_SELECTION);
+		lista_9.setLayoutOrientation(JList.HORIZONTAL_WRAP);
+		lista_9.setVisibleRowCount(-1);
+		JScrollPane listScroller2 = new JScrollPane(lista_9);
+		listScroller2.setPreferredSize(new Dimension(250, 80));
+		contentPane.add(lista_9);
+		
 	}
 
 	/**
@@ -223,17 +252,17 @@ public class NuovoDipendente extends JFrame {
 		/**
 		 * Action performed.
 		 *
-		 * @param e the e
-		 * @actionPerformed 
+		 * @param e
+		 *            the e
+		 * @actionPerformed
 		 */
-		public void actionPerformed(ActionEvent e) {		
+		public void actionPerformed(ActionEvent e) {
 			Controlli c = new Controlli();
 			boolean on = false;
 			try {
-				on = c.nameControl(textField) && c.surnameControl(textField_1) &&
-						c.taskControl(textField_9) && c.sexControl(textField_2) &&
-						c.dateControl(textField_3) && c.emailControl(textField_4) 
-						&& c.phoneControl(textField_5) && c.addressControl(textField_6)
+				on = c.nameControl(textField) && c.surnameControl(textField_1)
+						&& c.dateControl(textField_3) && c.emailControl(textField_4) && c.phoneControl(textField_5)
+						&& c.addressControl(textField_6)
 						&& c.IDControl(textField_7, Table.DIPENDENTE, this.getClass().getName())
 						&& c.cfControl(textField_8);
 			} catch (Exception e3) {
@@ -241,42 +270,37 @@ public class NuovoDipendente extends JFrame {
 			}
 			ArrayList<JTextField> textList = new ArrayList<>();
 			try {
-				if(on){
+				if (on) {
 					textList.add(textField);
 					textList.add(textField_1);
-					textList.add(textField_2);
 					textList.add(textField_3);
 					textList.add(textField_4);
 					textList.add(textField_5);
 					textList.add(textField_6);
-					textList.add(textField_9);
 					textList.add(textField_7);
 					textList.add(textField_8);
 				}
 			} catch (Exception e2) {
 				e2.printStackTrace();
 			}
-			
-			    
-				
-				
-			if(!textList.isEmpty()) {
+
+			if (!textList.isEmpty()) {
 				String query = null;
+	
 				try {
-					query = c.getQuery(textList, Table.DIPENDENTE, "nome", "cognome",
-							"sesso", "data_di_nascita", "mail", "telefono", "domicilio", "mansione", 
-							"ID_Dipendente", "cf");
+					query = c.getQuery(textList, Table.DIPENDENTE, lista_2, lista_9, "sesso","mansione", "nome", "cognome",
+							"data_di_nascita", "mail", "telefono", "domicilio", "ID_Dipendente", "cf");
 				} catch (Exception e1) {
 					e1.printStackTrace();
-					}
+				}
 				JLabel lblDipendenteAggiuntoCon = new JLabel("Dipendente aggiunto con successo");
-				int[] tetZ = {247, 230, 177, 14};
+				int[] tetZ = { 247, 230, 177, 14 };
 				lblDipendenteAggiuntoCon.setBounds(tetZ[0], tetZ[1], tetZ[2], tetZ[3]);
 				contentPane.add(lblDipendenteAggiuntoCon);
 				DBManager mysql = DBManager.getInstance();
 				mysql.query(query);
-	
-			   }				
+				
 			}
+		}
 	}
 }

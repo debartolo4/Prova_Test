@@ -87,7 +87,7 @@ public class ModificaStrumentazione extends JFrame {
 			 */
 			public void actionPerformed(ActionEvent e) {
 				String id = textField_7.getText();
-				String query = "SELECT * FROM mystrumentazione WHERE ID_Strumento = ?";
+				String query = "SELECT * FROM strumentazione WHERE ID_Strumento = ?";
 				DBManager mysql = DBManager.getInstance();
 				ResultSet rs = mysql.querySelect(query, id);
 				try {
@@ -100,8 +100,8 @@ public class ModificaStrumentazione extends JFrame {
 				       String modello= rs.getString("Modello");
 				       String nome=rs.getString("Nome");
 				       String tipologia=rs.getString("Tipologia");
-				       String unita=rs.getString("NrUnitaPossedute");
-				       String data= rs.getString("AnnoAcquisto");
+				       String unita=rs.getString("Nr_Unita_Possedute");
+				       String data= rs.getString("Anno_Acquisto");
 				       
 				       textField.setText(id1);
 				       textField_1.setText(marca);
@@ -285,15 +285,15 @@ public class ModificaStrumentazione extends JFrame {
 				textList.add(textField_3);
 				textList.add(textField_4);
 				textList.add(textField_5);
-				if(textList.isEmpty()){
+				if(!textList.isEmpty()){
 					
 					JLabel lblSpazioAggiuntoCon = new JLabel("Strumentazione modificata con successo");
 					lblSpazioAggiuntoCon.setBounds(48, 188, 278, 14);
 					contentPane.add(lblSpazioAggiuntoCon);
 					
-					String query = "UPDATE mystrumentazione SET ID_Strumento= ? AND"
-							+ "Marca= ? AND Modello= ? AND Nome = ? ,Tipologia = ? "
-							+ "AND NrUnitaPossedute = ? AND AnnoAcquisto = ? "
+					String query = "UPDATE strumentazione SET ID_Strumento= ? ,"
+							+ "Marca= ? , Modello= ? , Nome = ? ,Tipologia = ? "
+							+ ", Nr_Unita_Possedute = ? , Anno_Acquisto = ? "
 							+ " WHERE ID_Strumento = ? ;";
 					
 					
