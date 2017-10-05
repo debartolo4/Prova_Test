@@ -165,12 +165,7 @@ public class NuovaStrumentazione extends JFrame {
 		JLabel lblAnnoAcquisto = new JLabel("Data acquisto");
 		int[] setT = {188, 149, 87, 14};
 		lblAnnoAcquisto.setBounds(setT[0], setT[1], setT[2], setT[3]);
-		panel.add(lblAnnoAcquisto);
-
-		
-		
-		
-	
+		panel.add(lblAnnoAcquisto);	
 	}
 	
 	/**
