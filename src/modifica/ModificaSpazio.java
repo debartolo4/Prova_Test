@@ -142,9 +142,7 @@ public class ModificaSpazio extends JFrame {
 						window.setVisible(true);
 						window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						contentPane.setVisible(false);
-
 					}
-
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, "Errore");
 				}
@@ -238,11 +236,8 @@ public class ModificaSpazio extends JFrame {
 					DBManager mysql = DBManager.getInstance();
 					mysql.query(query, textField.getText(), textField_1.getText(), textField_2.getText(),
 							textField_10.getText());
-
 				}
-
 			}
-
 		}
 	}
 }

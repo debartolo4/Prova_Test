@@ -101,7 +101,6 @@ public class Controlli {
 				throw new Exception("Data non valida.");
 			}
 		}
-
 	}
 
 	// CONTROLLO E-MAIL DIPENDENTE
@@ -163,7 +162,8 @@ public class Controlli {
 		address = address.toLowerCase();
 
 		if (!address.matches(
-				"^((via)|(viale)|(piazza)|(corte)|(corso)|(vicolo)|(contrada)|(strada))(\\s(\\w*[a-zA-Z]+\\w*)+\\D*\\s*)*[,]\\s*\\d+([/]?[a-zA-Z])?$")) {
+				"^((via)|(viale)|(piazza)|(corte)|(corso)|(vicolo)|(contrada)|(strada))"
+				+ "(\\s(\\w*[a-zA-Z]+\\w*)+\\D*\\s*)*[,]\\s*\\d+([/]?[a-zA-Z])?$")) {
 			throw new Exception("Formato indirizzo non valido");
 		} else {
 			return true;
@@ -370,7 +370,5 @@ public class Controlli {
 		} else {
 			throw new Exception("Selezione della mansione non corretta.");
 		}
-
 	}
-
 }

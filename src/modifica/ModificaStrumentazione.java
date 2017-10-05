@@ -1,6 +1,5 @@
 package modifica;
 
-
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
@@ -64,8 +63,6 @@ public class ModificaStrumentazione extends JFrame {
 
 	/** The text field 7. */
 	private JTextField textField_7;
-	
-
 
 	/**
 	 * Create the frame.
@@ -92,8 +89,7 @@ public class ModificaStrumentazione extends JFrame {
 				ResultSet rs = mysql.querySelect(query, id);
 				try {
 					
-				      if(rs.next()){
-				       
+				      if(rs.next()){				       
 				       
 				       String id1= rs.getString("ID_Strumento");
 				       String marca= rs.getString("Marca");
@@ -109,29 +105,19 @@ public class ModificaStrumentazione extends JFrame {
 				       textField_6.setText(nome);
 				       textField_3.setText(tipologia);
 				       textField_4.setText(unita);
-				       textField_5.setText(data);
-				       
-				       
+				       textField_5.setText(data);				       
 				      }
 				      else{
 				    	  JOptionPane.showMessageDialog(null, "Errore");
-				      }
-				      
-
-				    
+				      }				    
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, "Errore");;
 				}
 			}
 		});
+		
 		btnOk.setBounds(321, 7, 89, 23);
-		panel.add(btnOk);
-		
-		
-		
-		
-		
-	
+		panel.add(btnOk);	
 	}
 
 	private JButton sett2(JPanel panel) {
@@ -276,7 +262,6 @@ public class ModificaStrumentazione extends JFrame {
 				e2.printStackTrace();
 			}
 
-
 			if(on) {
 				textList.add(textField);
 				textList.add(textField_1);
@@ -301,7 +286,6 @@ public class ModificaStrumentazione extends JFrame {
 					mysql.query(query,textField.getText(), textField_1.getText(), textField_2.getText(), 
 							textField_6.getText(), textField_3.getText(), textField_4.getText(),
 							textField_5.getText(), textField_7.getText());
-
 				}
 			}	
 		}

@@ -98,17 +98,13 @@ public class NuovoSpazio extends JFrame {
 		btnAggiungi.setFont(new Font("Tahoma", Font.PLAIN, 24));
 		int[] retI = {146, 205, 162, 45};
 		btnAggiungi.setBounds(retI[0], retI[1], retI[2], retI[3]);
-		contentPane.add(btnAggiungi);
-		
-	
-		
-		
-		
+		contentPane.add(btnAggiungi);		
 	}
 	
 	/**
 	 * SwingAction.
 	 */
+	
 	private class SwingAction extends AbstractAction {
 		
 		/** The Constant serialVersionUID. */
@@ -119,11 +115,7 @@ public class NuovoSpazio extends JFrame {
 		 */
 		public SwingAction() {
 			putValue(NAME, "AGGIUNGI");
-			putValue(SHORT_DESCRIPTION, "Some short description");
-			
-			
-						
-			
+			putValue(SHORT_DESCRIPTION, "Some short description");			
 		}
 		
 		/**
@@ -131,6 +123,7 @@ public class NuovoSpazio extends JFrame {
 		 *
 		 * @param e the e
 		 */
+		
 		public void actionPerformed(ActionEvent e) {
 			Controlli c = new Controlli();
 			ArrayList<JTextField> textList = new ArrayList<>();
@@ -141,8 +134,7 @@ public class NuovoSpazio extends JFrame {
 				on = c.IDControl(textField, Table.SPAZIO, this.getClass().getName()) && c.notEmptyStringControl(textField_1);
 			} catch (Exception e2) {
 				e2.printStackTrace();
-			}
-			
+			}			
 			
 			if(on) {
 				textList.add(textField);
@@ -154,8 +146,7 @@ public class NuovoSpazio extends JFrame {
 						query = c.getQuery(textList, Table.SPAZIO, "ID_Spazio", "Nome", "Descrizione");
 					} catch (Exception e1) {
 						e1.printStackTrace();
-					}
-					
+					}					
 					
 					JLabel lblSpazioAggiuntoCon = new JLabel("Spazio aggiunto con successo");
 					int[] retL = {146, 180, 213, 14};
@@ -164,7 +155,6 @@ public class NuovoSpazio extends JFrame {
 				
 					DBManager mysql = DBManager.getInstance();
 					mysql.query(query); 
-
 				}
 			}	
 		}

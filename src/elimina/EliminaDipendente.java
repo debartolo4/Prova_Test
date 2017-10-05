@@ -25,7 +25,6 @@ import javax.swing.Action;
  * The Class EliminaDipendente.
  */
 public class EliminaDipendente extends JFrame {
-
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -174,17 +173,14 @@ public class EliminaDipendente extends JFrame {
 						  }
 					} catch (SQLException e1) {
 						JOptionPane.showMessageDialog(null, "Errore");
-					}
-				    
-			
+					}			
 			}
 		});
+		
 		int[] metO = {229, 11, 57, 23};
 		textField.setBounds(metO[0], metO[1], metO[2], metO[3]);
 		contentPane.add(textField);
-		textField.setColumns(10);
-		
-		
+		textField.setColumns(10);		
 		
 		JButton btnOk = new JButton("OK");
 		btnOk.addActionListener(new ActionListener() {
@@ -219,8 +215,7 @@ public class EliminaDipendente extends JFrame {
 				       
 						String id1= rs.getString("ID_Dipendente");
 				      
-						String cf= rs.getString("CF");
-				       
+						String cf= rs.getString("CF");				       
 				       
 						textField_1.setText(nome);
 						textField_2.setText(cognome);
@@ -231,8 +226,7 @@ public class EliminaDipendente extends JFrame {
 				       	textField_7.setText(domicilio);
 				       	textField_8.setText(mansione);
 				       	textField_9.setText(id1);
-				       	textField_10.setText(cf);
-				       
+				       	textField_10.setText(cf);				       
 				      }
 				      else{
 				    	  JOptionPane.showMessageDialog(null, "Errore");
@@ -344,9 +338,7 @@ public class EliminaDipendente extends JFrame {
 			String id = textField.getText();
 			String query = "DELETE FROM dipendente WHERE ID_Dipendente = ?";
 			DBManager mysql = DBManager.getInstance();
-			mysql.query(query, id);
-			
-			
+			mysql.query(query, id);			
 		}
 	}
 }

@@ -88,7 +88,6 @@ public class GraficaLogin extends JFrame {
 		textField = new JTextField();
 		textField.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-
 			}
 		});
 		int[] varD = { 199, 88, 160, 20 };
@@ -156,8 +155,7 @@ public class GraficaLogin extends JFrame {
 		 */
 		public void actionPerformed(ActionEvent e) {
 				
-			Controlli c = new Controlli();
-			
+			Controlli c = new Controlli();			
 			
 			String name = null;
 			try {
@@ -177,8 +175,7 @@ public class GraficaLogin extends JFrame {
 			String query = "SELECT * FROM lista_utenti WHERE Username = ? AND Password = ? ;";
 			DBManager mysql = DBManager.getInstance();
 
-			System.out.println(name + " " + pass);
-			
+			System.out.println(name + " " + pass);			
 			
 			ResultSet rs = mysql.querySelect(query, name, pass);
 

@@ -233,15 +233,14 @@ public class ModificaDipendente extends JFrame {
 						window.setVisible(true);
 						window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 						contentPane.setVisible(false);
-
 					}
 
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, "Errore");
 				}
-
 			}
 		});
+		
 		textField_10.setBounds(215, 9, 86, 20);
 		contentPane.add(textField_10);
 		textField_10.setColumns(10);
@@ -287,11 +286,9 @@ public class ModificaDipendente extends JFrame {
 						textField_6.setText(domicilio);
 						textField_7.setText(id1);
 						textField_8.setText(cf);
-
 					} else {
 						JOptionPane.showMessageDialog(null, "Errore");
 					}
-
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, "Errore");
 				}

@@ -167,6 +167,4 @@ public class DBManager {
 		}
 		return rs;
 	}
-		
-
 }

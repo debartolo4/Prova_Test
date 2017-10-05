@@ -60,9 +60,7 @@ public class EliminaStrumentazione extends JFrame {
 	private final Action action = new SwingAction();
 	
 	/** The text field 7. */
-	private JTextField textField_7;
-	
-	
+	private JTextField textField_7;	
 
 	/**
 	 * Create the frame.
@@ -104,28 +102,19 @@ public class EliminaStrumentazione extends JFrame {
 				       textField_6.setText(nome);
 				       textField_3.setText(tipologia);
 				       textField_4.setText(""+unita);
-				       textField_5.setText(""+data);
-				       
+				       textField_5.setText(""+data);				       
 				       
 				      }
 				      else{
 				    	  JOptionPane.showMessageDialog(null, "Errore");
-				      }
-
-				    
+				      }				    
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, "Errore");
 				}
 			}
 		});
 		btnOk.setBounds(321, 7, 89, 23);
-		panel.add(btnOk);
-		
-		
-		
-		
-		
-	
+		panel.add(btnOk);	
 	}
 
 	private JButton settt2(JPanel panel) {

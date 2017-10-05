@@ -10,9 +10,7 @@ public class DipComboItem {
 	private String nome;
     
     /** The id. */
-    private String id;
-
-    
+    private String id;    
 
     /**
      * Instantiates a new dip combo item.
@@ -49,7 +47,5 @@ public class DipComboItem {
      */
     public String getValue() {
         return id;
-    }
-    
-    
+    }    
 }

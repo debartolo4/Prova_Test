@@ -71,6 +71,7 @@ public class NuovoDipendente extends JFrame {
 	/**
 	 * Create the frame.
 	 */
+	
 	public NuovoDipendente() {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		int[] Tet = { 100, 100, 450, 300 };
@@ -145,9 +146,6 @@ public class NuovoDipendente extends JFrame {
 		JScrollPane listScroller = new JScrollPane(lista_2);
 		listScroller.setPreferredSize(new Dimension(250, 80));
 		contentPane.add(lista_2);
-		// listScroller.setColumnHeader(com);
-		// contentPane.add(textField_2);
-		// textField_2.setColumns(com);
 
 		textField_3 = new JTextField();
 		int[] tetO = { 109, 136, 86, 20 };
@@ -208,12 +206,6 @@ public class NuovoDipendente extends JFrame {
 		lblMansione.setBounds(tetX[0], tetX[1], tetX[2], tetX[3]);
 		contentPane.add(lblMansione);
 
-//		textField_9 = new JTextField();
-//		int[] tetY = { 282, 61, 86, 20 };
-//		textField_9.setBounds(tetY[0], tetY[1], tetY[2], tetY[3]);
-//		contentPane.add(textField_9);
-//		textField_9.setColumns(com);
-
 		listModel2.addElement("Direttore");
 		listModel2.addElement("Dipendente");
 		listModel2.addElement("Collaboratore");
@@ -234,6 +226,7 @@ public class NuovoDipendente extends JFrame {
 	 *
 	 * @SwingAction
 	 */
+	
 	public class SwingAction extends AbstractAction {
 
 		/** The Constant serialVersionUID. */
@@ -244,6 +237,7 @@ public class NuovoDipendente extends JFrame {
 		 *
 		 * @SwingAction
 		 */
+		
 		public SwingAction() {
 			putValue(NAME, "AGGIUNGI");
 			putValue(SHORT_DESCRIPTION, "Some short description");
@@ -256,6 +250,7 @@ public class NuovoDipendente extends JFrame {
 		 *            the e
 		 * @actionPerformed
 		 */
+		
 		public void actionPerformed(ActionEvent e) {
 			Controlli c = new Controlli();
 			boolean on = false;
@@ -298,8 +293,7 @@ public class NuovoDipendente extends JFrame {
 				lblDipendenteAggiuntoCon.setBounds(tetZ[0], tetZ[1], tetZ[2], tetZ[3]);
 				contentPane.add(lblDipendenteAggiuntoCon);
 				DBManager mysql = DBManager.getInstance();
-				mysql.query(query);
-				
+				mysql.query(query);				
 			}
 		}
 	}

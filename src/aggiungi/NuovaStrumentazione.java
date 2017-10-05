@@ -222,8 +222,7 @@ public class NuovaStrumentazione extends JFrame {
 					JLabel lblSpazioAggiuntoCon = new JLabel("Strumentazione aggiunta con successo");
 					int[] setU = {48, 188, 278, 14};
 					lblSpazioAggiuntoCon.setBounds(setU[0], setU[1], setU[2], setU[3]);
-					contentPane.add(lblSpazioAggiuntoCon);
-					
+					contentPane.add(lblSpazioAggiuntoCon);					
 					
 					String query = null;
 					try {
@@ -235,9 +234,7 @@ public class NuovaStrumentazione extends JFrame {
 					}
 					DBManager mysql = DBManager.getInstance();
 					mysql.query(query);
-			}
-			
-			
+				}			
 			}
 		}
 	}
@@ -252,6 +249,5 @@ public class NuovaStrumentazione extends JFrame {
 
 	public boolean controlName(JTextField jt) {
 		return true;
-	}
-	
+	}	
 }

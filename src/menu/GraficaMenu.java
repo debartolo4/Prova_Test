@@ -25,7 +25,6 @@ import javax.swing.SwingConstants;
  * The Class GraficaMenu.
  */
 public class GraficaMenu extends JFrame {
-
 	
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 1L;
@@ -62,9 +61,6 @@ public class GraficaMenu extends JFrame {
 	
 	/** The action 9. */
 	private final Action action_9 = new SwingAction_9();
-
-	
-
 
 	/**
 	 * Create the frame.
@@ -139,8 +135,7 @@ public class GraficaMenu extends JFrame {
 		JButton button_7 = new JButton("Modifica");
 		button_7.setAction(action_9);
 		button_7.setBounds(345, 171, 89, 23);
-		contentPane.add(button_7);
-		
+		contentPane.add(button_7);		
 	}
 	
 	/**
@@ -304,13 +299,7 @@ public class GraficaMenu extends JFrame {
 			newWindow.setVisible(true);
 			newWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		}
-	}
-	
-	
-	
-	
-	
-	
+	}	
 	
 	/**
 	 * The Class SwingAction_5.
@@ -342,9 +331,7 @@ public class GraficaMenu extends JFrame {
 			newWindow.setVisible(true);
 			newWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		}
-	}
-	
-	
+	}	
 	
 	/**
 	 * The Class SwingAction_6.
@@ -410,9 +397,6 @@ public class GraficaMenu extends JFrame {
 			newWindow.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
 		}
 	}
-	
-	
-
 
 	/**
 	 * The Class SwingAction_8.

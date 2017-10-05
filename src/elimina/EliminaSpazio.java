@@ -56,7 +56,6 @@ public class EliminaSpazio extends JFrame {
 	 * Launch the application.
 	 */
 
-
 	/**
 	 * Create the frame.
 	 */
@@ -105,13 +104,11 @@ public class EliminaSpazio extends JFrame {
 			public void actionPerformed(ActionEvent e) {
 			}
 		});
+		
 		btnNewButton.setAction(action);
 		btnNewButton.setFont(new Font("Tahoma", Font.PLAIN, 18));
 		btnNewButton.setBounds(300, 211, 110, 39);
-		contentPane.add(btnNewButton);
-		
-
-		
+		contentPane.add(btnNewButton);		
 		
 		JLabel lblNewLabel_2 = new JLabel("Ricerca per ID:");
 		lblNewLabel_2.setBounds(110, 6, 107, 27);
@@ -131,24 +128,20 @@ public class EliminaSpazio extends JFrame {
 				ResultSet rs = mysql.querySelect(query, id);
 			    
 				try {
-
-				      if(rs.next()){
-				        
+				      if(rs.next()){				        
 				
 				    	  GraficaMenu window = new GraficaMenu();
 				  
 				    	  window.setVisible(true);
 				    	  window.setDefaultCloseOperation(JFrame.DISPOSE_ON_CLOSE);
-				    	  contentPane.setVisible(false);
-						
-				      }
-				    
+				    	  contentPane.setVisible(false);						
+				      }				    
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, "Errore");
 				}
-
 			}
 		});
+		
 		textField_10.setBounds(215, 9, 86, 20);
 		contentPane.add(textField_10);
 		textField_10.setColumns(10);
@@ -169,27 +162,19 @@ public class EliminaSpazio extends JFrame {
 			    
 				try {
 
-				      if(rs.next()){
-				       
+				      if(rs.next()){				       
 				       
 				       String id1= rs.getString("ID_Spazio");
 				       String nome= rs.getString("Nome");
-				       String descrizione= rs.getString("Descrizione");
-				       
-				       
+				       String descrizione= rs.getString("Descrizione");				       
 				       
 				       textField.setText(id1);
 				       textField_1.setText(nome);
-				       textField_2.setText(descrizione);
-				      
-				       
-				       
+				       textField_2.setText(descrizione);				       
 				      }
 				      else{
 				    	  JOptionPane.showMessageDialog(null, "Errore");
-				      }
-				      
-				    
+				      }				    
 				} catch (SQLException e1) {
 					JOptionPane.showMessageDialog(null, "Errore");
 				}
@@ -230,10 +215,7 @@ public class EliminaSpazio extends JFrame {
 				String query = "DELETE FROM spazio WHERE ID_Spazio = ?;";
 				
 				DBManager mysql = DBManager.getInstance();
-				mysql.query(query, textField_10.getText());
-				
-			
-		
+				mysql.query(query, textField_10.getText());		
 			}
 		}
 	}

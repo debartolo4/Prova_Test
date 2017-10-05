@@ -4,14 +4,12 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 
-
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
 
 import support.DBManager;
-
 
 import javax.swing.DefaultComboBoxModel;
 import javax.swing.JButton;
@@ -30,8 +28,6 @@ import javax.swing.table.DefaultTableModel;
 import control.Controlli;
 
 import javax.swing.JScrollPane;
-
-
 
 /**
  * The Class GestioneSchedario
@@ -131,13 +127,9 @@ public class GestioneSchedario extends JFrame {
 		lblIdStrumentazione.setBounds(340, 77, 136, 14);
 		contentPane.add(lblIdStrumentazione);
 		
-		String q = "SELECT ID_Dipendente FROM schedario;"; 
+		String q = "SELECT ID_Dipendente FROM schedario;"; 		
 		
-		
-		countDipendenti(q);
-	
-		
-		
+		countDipendenti(q);		
 	}
 
 	private void countDipendenti(String q) {
@@ -176,10 +168,7 @@ public class GestioneSchedario extends JFrame {
 		ResultSet rs = mysql.querySelect(que);
 		
 		File fila = new File("Schedario.txt");
-		PrintStream scrivi = new PrintStream(fila);
-	
-	
-		
+		PrintStream scrivi = new PrintStream(fila);		
 		
 		try {
 			while(rs.next()) {
@@ -241,9 +230,7 @@ public class GestioneSchedario extends JFrame {
 				getTable();
 			} catch (FileNotFoundException e1) {
 				JOptionPane.showMessageDialog(null, e1.getMessage());
-			}
-			
-			
+			}			
 		}
 
 		private void queryInsert(DBManager mysql, String query, String vTemp) {
@@ -252,7 +239,6 @@ public class GestioneSchedario extends JFrame {
 			String z = String.valueOf(comboBox_2.getSelectedItem().toString());
 			query = query + vTemp;
 			mysql.query(query, x, y, z);
-		}
-	
+		}	
 	}
 }

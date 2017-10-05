@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.7.0
+-- version 4.7.4
 -- https://www.phpmyadmin.net/
 --
 -- Host: 127.0.0.1
--- Creato il: Ott 03, 2017 alle 18:46
--- Versione del server: 10.1.25-MariaDB
--- Versione PHP: 7.1.7
+-- Creato il: Ott 05, 2017 alle 13:29
+-- Versione del server: 10.1.26-MariaDB
+-- Versione PHP: 7.1.9
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -31,15 +31,23 @@ SET time_zone = "+00:00";
 CREATE TABLE `dipendente` (
   `Nome` varchar(20) NOT NULL,
   `Cognome` varchar(20) NOT NULL,
-  `Sesso` varchar(1) NOT NULL,
+  `Sesso` char(1) NOT NULL,
   `Data_di_Nascita` date NOT NULL,
   `Mail` varchar(50) NOT NULL,
   `Telefono` varchar(14) NOT NULL,
   `Domicilio` varchar(50) NOT NULL,
-  `Mansione` tinyint(1) NOT NULL,
+  `Mansione` tinyint(4) NOT NULL,
   `ID_Dipendente` int(20) NOT NULL,
   `CF` char(16) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `dipendente`
+--
+
+INSERT INTO `dipendente` (`Nome`, `Cognome`, `Sesso`, `Data_di_Nascita`, `Mail`, `Telefono`, `Domicilio`, `Mansione`, `ID_Dipendente`, `CF`) VALUES
+('Gianluca', 'de Bartolo', 'M', '1996-07-03', 'laraza37@hotmail.it', '3314545355', 'Contrada Rossi, 4', 4, 630999, 'DBRGLC95L03H926G'),
+('Davide', 'De Pasquale', 'M', '1994-07-08', 'dav@gmail.com', '+393314545455', 'Piazza Aldo Moro, 2/B', 1, 634444, 'DPSDVD94L09H926B');
 
 -- --------------------------------------------------------
 
@@ -54,6 +62,13 @@ CREATE TABLE `lista_utenti` (
   `Admin` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dump dei dati per la tabella `lista_utenti`
+--
+
+INSERT INTO `lista_utenti` (`Matricola`, `Username`, `Password`, `Admin`) VALUES
+(123456, 'Username1', 'Password1', 1);
+
 -- --------------------------------------------------------
 
 --
@@ -61,10 +76,21 @@ CREATE TABLE `lista_utenti` (
 --
 
 CREATE TABLE `mansione` (
-  `ID_Dipendente` int(20) NOT NULL,
+  `Cod_Mansione` tinyint(4) NOT NULL,
   `Direttore` tinyint(1) NOT NULL,
-  `Dipendente` tinyint(1) NOT NULL
+  `Dipendente` tinyint(1) NOT NULL,
+  `Collaboratore` tinyint(1) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `mansione`
+--
+
+INSERT INTO `mansione` (`Cod_Mansione`, `Direttore`, `Dipendente`, `Collaboratore`) VALUES
+(1, 0, 0, 1),
+(2, 0, 1, 0),
+(3, 0, 1, 1),
+(4, 1, 0, 0);
 
 -- --------------------------------------------------------
 
@@ -78,6 +104,14 @@ CREATE TABLE `schedario` (
   `ID_Strumento` int(20) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
+--
+-- Dump dei dati per la tabella `schedario`
+--
+
+INSERT INTO `schedario` (`ID_Dipendente`, `ID_Spazio`, `ID_Strumento`) VALUES
+(634444, 987676, 123000),
+(630999, 987676, 2);
+
 -- --------------------------------------------------------
 
 --
@@ -89,6 +123,14 @@ CREATE TABLE `spazio` (
   `Nome` varchar(20) NOT NULL,
   `Descrizione` varchar(200) NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
+--
+-- Dump dei dati per la tabella `spazio`
+--
+
+INSERT INTO `spazio` (`ID_Spazio`, `Nome`, `Descrizione`) VALUES
+(656700, 'Ufficio 1', 'Uno spazio in cui un dipendente lavora.'),
+(987676, 'Area Relax', 'Uno spazio in cui un dipendente può rifocillarsi.');
 
 -- --------------------------------------------------------
 
@@ -107,6 +149,15 @@ CREATE TABLE `strumentazione` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
+-- Dump dei dati per la tabella `strumentazione`
+--
+
+INSERT INTO `strumentazione` (`ID_Strumento`, `Nome`, `Marca`, `Modello`, `Tipologia`, `Nr_Unita_Possedute`, `Anno_Acquisto`) VALUES
+(2, 'Smartphone', 'Nokia', 'Lumia0009', 'Telefonia', 10, '2012-05-04'),
+(100001, 'Smartphone', 'Samsung', 'J5 2012', 'Telefonia', 5, '2012-05-03'),
+(123000, 'Computer', 'Acer', 'X9980', 'Informatica', 19, '2017-12-31');
+
+--
 -- Indici per le tabelle scaricate
 --
 
@@ -116,7 +167,7 @@ CREATE TABLE `strumentazione` (
 ALTER TABLE `dipendente`
   ADD PRIMARY KEY (`ID_Dipendente`),
   ADD UNIQUE KEY `CF` (`CF`),
-  ADD KEY `Mansione` (`Mansione`);
+  ADD KEY `foreign_task` (`Mansione`);
 
 --
 -- Indici per le tabelle `lista_utenti`
@@ -129,9 +180,8 @@ ALTER TABLE `lista_utenti`
 -- Indici per le tabelle `mansione`
 --
 ALTER TABLE `mansione`
-  ADD PRIMARY KEY (`ID_Dipendente`),
-  ADD UNIQUE KEY `Direttore` (`Direttore`),
-  ADD UNIQUE KEY `Dipendente` (`Dipendente`);
+  ADD PRIMARY KEY (`Cod_Mansione`),
+  ADD UNIQUE KEY `Cod_Mansione` (`Cod_Mansione`);
 
 --
 -- Indici per le tabelle `schedario`
@@ -161,14 +211,7 @@ ALTER TABLE `strumentazione`
 -- Limiti per la tabella `dipendente`
 --
 ALTER TABLE `dipendente`
-  ADD CONSTRAINT `dipendente_ibfk_1` FOREIGN KEY (`Mansione`) REFERENCES `mansione` (`Direttore`),
-  ADD CONSTRAINT `dipendente_ibfk_2` FOREIGN KEY (`Mansione`) REFERENCES `mansione` (`Dipendente`);
-
---
--- Limiti per la tabella `mansione`
---
-ALTER TABLE `mansione`
-  ADD CONSTRAINT `mansione_ibfk_1` FOREIGN KEY (`ID_Dipendente`) REFERENCES `dipendente` (`ID_Dipendente`);
+  ADD CONSTRAINT `foreign_task` FOREIGN KEY (`Mansione`) REFERENCES `mansione` (`Cod_Mansione`);
 
 --
 -- Limiti per la tabella `schedario`
