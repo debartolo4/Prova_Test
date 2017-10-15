@@ -298,32 +298,32 @@ public class Controlli {
 	
 	//Overload (getQuery)
 	public String getQuery(ArrayList<JTextField> textField2, Table t, String... elem) throws Exception {
-		textField2.iterator();
-		int count = 0;
-		String query = null;
-		if (t.equals(Table.STRUMENTAZIONE))
-			query = "INSERT INTO strumentazione (";
-		else if (t.equals(Table.DIPENDENTE))
-			query = "INSERT INTO dipendente (";
-		else if (t.equals(Table.SPAZIO))
-			query = "INSERT INTO spazio (";
-		else
-			throw new Exception();
-
-		while (count < elem.length) {
-			if (count != elem.length - 1)
-				query = query + elem[count] + ",";
-			else
-				query = query + elem[count] + ") VALUES (";
-			count++;
-		}
-
-		for (JTextField field1 : textField2) {
-			query = query + "'" + field1.getText() + "',";
-		}
-		query = query.substring(0, query.length() - 1);
-		query = query + ");";
-		return query;
+		textField2.iterator();										
+		int count = 0;												
+		String query = null;										
+		if (t.equals(Table.STRUMENTAZIONE))							
+			query = "INSERT INTO strumentazione (";					
+		else if (t.equals(Table.DIPENDENTE))						
+			query = "INSERT INTO dipendente (";						
+		else if (t.equals(Table.SPAZIO))							
+			query = "INSERT INTO spazio (";							
+		else														
+			throw new Exception();									
+																	
+		while (count < elem.length) {								
+			if (count != elem.length - 1)							
+				query = query + elem[count] + ",";					
+			else													
+				query = query + elem[count] + ") VALUES (";			
+			count++;												
+		}															
+																	
+		for (JTextField field1 : textField2) {						
+			query = query + "'" + field1.getText() + "',";			
+		}															
+		query = query.substring(0, query.length() - 1);				
+		query = query + ");";										
+		return query;												
 	}
 
 	/**
